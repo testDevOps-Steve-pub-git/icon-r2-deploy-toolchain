@@ -4,8 +4,8 @@ template:
   name: Test Template
   description: Test Template 
   info:
-    git url: '[https://github.com/toolchain-test](https://github.com/toolchain-test)'
-    git branch: '[master](https://github.com/toolchain-test/tree/master)'
+    git url: '[https://github.com/ileneruth/toolchain-test](https://github.com/ileneruth/toolchain-test)'
+    git branch: '[master](https://github.com/ileneruth/toolchain-test/tree/master)'
 toolchain:
   name: 'ILENE-test-template-{{timestamp}}
 

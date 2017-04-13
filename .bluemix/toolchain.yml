@@ -12,8 +12,8 @@ services:
     service_id: hostedgit
     parameters:
       repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.com/open-toolchain/node-hello-world'
-      type: clone
+      repo_url: 'https://github.com/ileneruth/bmx-org-reporter'
+      type: existing
       has_issues: true
       enable_traceability: true
 

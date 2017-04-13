@@ -7,5 +7,5 @@ template:
     git url: '[https://github.com/ileneruth/toolchain-test](https://github.com/ileneruth/toolchain-test)'
     git branch: '[master](https://github.com/ileneruth/toolchain-test/tree/master)'
 toolchain:
-  name: 'ILENE-test-template-{{timestamp}}
+  name: 'ILENE-test-template-{{timestamp}}'
 

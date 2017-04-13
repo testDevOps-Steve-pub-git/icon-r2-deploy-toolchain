@@ -12,8 +12,8 @@ services:
     service_id: githubpublic
     parameters:
       repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.com/ileneruth/bmx-org-reporter-x'
-      type: exist
+      repo_url: 'https://github.com/ileneruth/bmx-org-reporter-y'
+      type: existing
       has_issues: false
       enable_traceability: false
 

@@ -9,11 +9,12 @@ toolchain:
   name: ILENE-test-template-{{timestamp}}
 services:
   icon-r2-clamav:
-    service_id: hostedgit  
+    service_id: hostedgit
     parameters:
-      has_issues: false
       repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.com/ileneruth/somerepo' 
+      repo_url: 'https://github.com/open-toolchain/node-hello-world'
       type: clone
+      has_issues: true
+      enable_traceability: true
 
       

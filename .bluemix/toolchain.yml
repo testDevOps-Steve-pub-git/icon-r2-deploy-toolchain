@@ -13,7 +13,7 @@ services:
     parameters:
       repo_name: '{{toolchain.name}}'
       repo_url: 'https://github.com/ileneruth/bmx-org-reporter'
-      type: existing
+      type: exist
       has_issues: true
       enable_traceability: true
 

@@ -1,9 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "title": "Clamav build stage",
-    "localized-struct":{
-        "$ref": "github-localized-struct.json"
-    },
     "description": "Clamav",
     "longDescription": "Clamav repo",
     "type": "object",

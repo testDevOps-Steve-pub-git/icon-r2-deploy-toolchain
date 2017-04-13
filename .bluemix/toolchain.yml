@@ -12,7 +12,14 @@ services:
     service_id: githubpublic
     parameters:
       repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.com/ileneruth/bmx-org-reporter'
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-clamav'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-frontend-nginx-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-frontend-nginx'
       type: link
       has_issues: false
       enable_traceability: false

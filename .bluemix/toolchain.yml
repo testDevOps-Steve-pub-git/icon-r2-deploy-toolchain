@@ -9,7 +9,7 @@ toolchain:
   name: ILENE-test-template-{{timestamp}}
 services:
   icon-r2-clamav:
-    service_id: hostedgit
+    service_id: githubpublic
     parameters:
       repo_name: '{{toolchain.name}}'
       repo_url: 'https://github.com/ileneruth/bmx-org-reporter'

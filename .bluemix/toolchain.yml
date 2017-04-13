@@ -9,10 +9,11 @@ toolchain:
   name: ILENE-test-template-{{timestamp}}
 services:
   icon-r2-clamav:
+    service_id: hostedgit  
     parameters:
       has_issues: false
       repo_name: '{{toolchain.name}}'
       repo_url: 'https://github.com/ileneruth/somerepo' 
       type: clone
-    service_id: hostedgit
+
       

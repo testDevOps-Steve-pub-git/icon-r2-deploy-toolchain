@@ -8,12 +8,12 @@ template:
 toolchain:
   name: ILENE-test-template-{{timestamp}}
 services:
-  icon-r2-clamav:
+  icon-r2-clamav-repo:
     service_id: githubpublic
     parameters:
       repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.com/ileneruth/bmx-org-reporter-y'
-      type: existing
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-clamav'
+      type: exist
       has_issues: false
       enable_traceability: false
 

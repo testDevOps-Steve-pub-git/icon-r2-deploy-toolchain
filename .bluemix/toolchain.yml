@@ -11,17 +11,8 @@ services:
   icon-r2-clamav:
     parameters:
       has_issues: false
-      repo_name: '{{form.githubpublic.parameters.icon-r2-repo_name}}' 
-      repo_url: '{{form.githubpublic.parameters.icon-r2-repo_url}}' 
+      repo_name: '{{toolchain.name}}'' 
+      repo_url: 'https://github.com/ileneruth/somerepo' 
       type: clone
-    service_id: githubpublic
-form:
-  githubpublic:
-    parameters:
-      icon-r2-repo_name: 'icon-r2-{{toolchain.name}}' 
-      icon-r2-repo_url: 'https://github.com/somerepo.git'
-      app-r2-repo_name: 'app-{{toolchain.name}}'
-      app-r2-repo_url: 'https://github.com/someotherrepo.git'
-    schema:
-      $ref: github.json
+    service_id: hostedgit
       

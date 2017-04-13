@@ -12,7 +12,7 @@ services:
     service_id: githubpublic
     parameters:
       repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-clamav'
+      repo_url: 'https://github.com/ileneruth/bmx-org-reporter'
       type: link
       has_issues: false
       enable_traceability: false

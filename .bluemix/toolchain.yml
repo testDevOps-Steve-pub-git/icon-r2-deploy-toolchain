@@ -13,8 +13,6 @@ services:
     parameters:
       repo_name: '{{toolchain.name}}'
       repo_url: 'https://github.com/MOHLTC11/icon-r2-clamav'
-      type: exist
+      type: link
       has_issues: false
       enable_traceability: false
-
-      

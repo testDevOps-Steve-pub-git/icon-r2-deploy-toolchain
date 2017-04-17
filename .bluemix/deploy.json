@@ -45,6 +45,7 @@
         "prod-region",
         "prod-organization",
         "prod-space",
+        "frontend-nginx-app-name"
         "dhir-nginx-app-name",
         "kibana-app-name"
     ],
@@ -53,6 +54,14 @@
             "type": "validator",
             "url": "/devops/setup/bm-helper/helper.html"
         },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.appName"
+            },
+            "key": "frontend-nginx-app-name"
+        },        
         {
             "type": "text",
             "readonly": false,

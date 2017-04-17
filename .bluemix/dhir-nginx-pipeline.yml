@@ -7,7 +7,7 @@ stages:
     branch: master
     dir_name: null
   triggers:
-  - type: manual
+  - type: none
   jobs:
   - name: Build
     type: builder

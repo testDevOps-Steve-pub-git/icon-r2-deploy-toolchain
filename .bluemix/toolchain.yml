@@ -100,7 +100,7 @@ services:
     parameters:
       services:
         - icon-r2-backend-repo
-      name: 'icon-r2-backend-pipeline'
+      name: 'icon-r2-server-pipeline'
       configuration:
         content:
           $ref: icon-server-pipeline.yml

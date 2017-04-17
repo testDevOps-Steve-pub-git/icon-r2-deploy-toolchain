@@ -26,6 +26,13 @@
             "description": "The bluemix space",
             "type": "string"
         },
+        "frontend-nginx-app-name": {
+            "description": {
+                "$ref": "#/messages/deploy.appDescription"
+            },
+            "type": "string",
+            "pattern": "\\S"
+        },
         "dhir-nginx-app-name": {
             "description": {
                 "$ref": "#/messages/deploy.appDescription"

@@ -45,7 +45,7 @@
         "prod-region",
         "prod-organization",
         "prod-space",
-        "frontend-nginx-app-name"
+        "frontend-nginx-app-name",
         "dhir-nginx-app-name",
         "kibana-app-name"
     ],
@@ -61,7 +61,7 @@
                 "$ref": "#/messages/deploy.appName"
             },
             "key": "frontend-nginx-app-name"
-        },        
+        },
         {
             "type": "text",
             "readonly": false,

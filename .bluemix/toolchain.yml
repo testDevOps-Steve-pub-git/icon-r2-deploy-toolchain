@@ -64,12 +64,12 @@ services:
         content:
           $ref: kibana-pipeline.yml
           $refType: text
-      env:
-        SAMPLE_REPO: icon-r2-kibana-repo
-        CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name-kibana}}'
-        PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
-        PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
-        PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+        env:
+          SAMPLE_REPO: icon-r2-kibana-repo
+          CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name-kibana}}'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
       execute: false
   icon-r2-backend-repo:
     service_id: githubpublic

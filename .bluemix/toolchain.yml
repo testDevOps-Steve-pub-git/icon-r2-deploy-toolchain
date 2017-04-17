@@ -30,17 +30,17 @@ services:
       type: link
       has_issues: false
       enable_traceability: false
-    icon-r2-dhir-nginx-pipeline:
-        service_id: pipeline
-        parameters:
-            services:
-              - icon-r2-dhir-nginx-repo
-            name: 'icon-r2-dhir-nginx-{{toolchain.name}}'
-            configuration:
-              content:
-                $ref: dhir-nginx-pipeline.yml
-                $refType: text
-              execute: false
+  icon-r2-dhir-nginx-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-dhir-nginx-repo
+      name: 'icon-r2-dhir-nginx-{{toolchain.name}}'
+      configuration:
+        content:
+          $ref: dhir-nginx-pipeline.yml
+          $refType: text
+      execute: false
   icon-r2-kibana-repo:
     service_id: githubpublic
     parameters:

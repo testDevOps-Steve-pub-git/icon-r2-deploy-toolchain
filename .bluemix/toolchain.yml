@@ -95,9 +95,29 @@ services:
       type: link
       has_issues: false
       enable_traceability: false
+  icon-r2-backend-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-backend-repo
+      name: 'icon-r2-backend-pipeline'
+      configuration:
+        content:
+          $ref: icon-backend-pipeline.yml
+          $refType: text
+        env:
+          SAMPLE_REPO: icon-r2-backend-repo
+          CF_APP_NAME1: '{{form.pipeline.parameters.server-app-name}}'
+          CF_APP_NAME2: '{{form.pipeline.parameters.server-worker-app-name}}'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+    execute: false
 form:
   pipeline:
     parameters:
+      server-app-name: 'icon-server'
+      server-worker-app-name: 'icon-server-worker'
       frontend-nginx-app-name: 'icon-r2-frontend-nginx'
       dhir-nginx-app-name: 'icon-r2-dhir-nginx'
       kibana-app-name: 'icon-r2-kibana'

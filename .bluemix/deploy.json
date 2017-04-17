@@ -46,6 +46,20 @@
             },
             "type": "string",
             "pattern": "\\S"
+        },
+        "server-app-name": {
+            "description": {
+                "$ref": "#/messages/deploy.appDescription"
+            },
+            "type": "string",
+            "pattern": "\\S"
+        },
+        "server-app-name-worker": {
+            "description": {
+                "$ref": "#/messages/deploy.appDescription"
+            },
+            "type": "string",
+            "pattern": "\\S"
         }
     },
     "required": [
@@ -54,7 +68,9 @@
         "prod-space",
         "frontend-nginx-app-name",
         "dhir-nginx-app-name",
-        "kibana-app-name"
+        "kibana-app-name",
+        "server-app-name",
+        "server-worker-app-name"
     ],
     "form": [
         {
@@ -84,6 +100,22 @@
                 "$ref": "#/messages/deploy.appName"
             },
             "key": "kibana-app-name"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.appName"
+            },
+            "key": "server-app-name"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.appName"
+            },
+            "key": "server-worker-app-name"
         },
         {
             "type": "table",

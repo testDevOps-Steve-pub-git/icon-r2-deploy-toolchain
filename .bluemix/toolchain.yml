@@ -1,7 +1,7 @@
 version: 2
 template:
   name: Test Template
-  description: Test Template 
+  description: Test Template
   info:
     git url: '[https://github.com/ileneruth/toolchain-test](https://github.com/ileneruth/toolchain-test)'
     git branch: '[master](https://github.com/ileneruth/toolchain-test/tree/master)'
@@ -20,6 +20,27 @@ services:
     service_id: githubpublic
     parameters:
       repo_url: 'https://github.com/MOHLTC11/icon-r2-frontend-nginx'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-dhir-nginx-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-dhir-nginx'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-kibana-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-kibana'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-backend-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-backend'
       type: link
       has_issues: false
       enable_traceability: false

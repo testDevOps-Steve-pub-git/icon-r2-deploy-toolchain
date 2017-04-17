@@ -97,3 +97,8 @@ stages:
       cd icon-r2-backend\n\necho \"check out $COMMIT_NUMBER\"\ngit checkout ${COMMIT_NUMBER}\n\
       \n\nTAG=\"build-${BUILD_NUMBER}-$(date +%Y-%m-%d)\"\necho \"Creating tag: $TAG\"\
       \ngit tag $TAG\n\n#git push --tags\n\n"
+hooks:
+- enabled: true
+  label: null
+  ssl_enabled: false
+  url: https://devops-api.ng.bluemix.net/v1/messaging/webhook/publish      

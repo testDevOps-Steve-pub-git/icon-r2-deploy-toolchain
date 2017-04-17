@@ -107,3 +107,8 @@ stages:
     PORT: '3310'
     CONTAINER_NAME: icon-clamav-devops
     DEPLOY_TYPE: red_black
+hooks:
+- enabled: true
+  label: null
+  ssl_enabled: false
+  url: https://devops-api.ng.bluemix.net/v1/messaging/webhook/publish

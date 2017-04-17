@@ -35,11 +35,16 @@ services:
     parameters:
       services:
         - icon-r2-dhir-nginx-repo
-      name: 'icon-r2-dhir-nginx-{{toolchain.name}}'
+      name: 'icon-r2-dhir-nginx-pipeline'
       configuration:
         content:
           $ref: dhir-nginx-pipeline.yml
           $refType: text
+        env:
+          CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name}}'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'          
       execute: false
   icon-r2-kibana-repo:
     service_id: githubpublic

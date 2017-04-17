@@ -6,7 +6,7 @@ template:
     git url: '[https://github.com/ileneruth/toolchain-test](https://github.com/ileneruth/toolchain-test)'
     git branch: '[master](https://github.com/ileneruth/toolchain-test/tree/master)'
 toolchain:
-  name: icon2-dev-template-{{timestamp}}
+  name: icon2-dev-toolchain-{{timestamp}}
 services:
   icon-r2-clamav-repo:
     service_id: githubpublic
@@ -117,10 +117,10 @@ services:
     parameters:
       services:
         - icon-r2-server-repo
-      name: 'icon-r2-server-pipeline'
+      name: 'icon-r2-backend-pipeline'
       configuration:
         content:
-          $ref: icon-server-pipeline.yml
+          $ref: icon-backend-pipeline.yml
           $refType: text
         env:
           SAMPLE_REPO: icon-r2-server-repo

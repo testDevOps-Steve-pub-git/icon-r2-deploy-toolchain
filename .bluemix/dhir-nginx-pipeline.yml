@@ -1,6 +1,6 @@
 ---
 stages:
-- name: build dhir-nginx
+- name: Build dhir nginx
   inputs:
   - service: ${SAMPLE_REPO}
     type: git
@@ -10,10 +10,10 @@ stages:
   - name: Build
     type: builder
     artifact_dir: ''
-- name: Deploy dhir-nginx
+- name: Deploy dhir nginx
   inputs:
   - type: job
-    stage: build dhir-nginx
+    stage: Build dhir nginx
     job: Build
     dir_name: null
   triggers:

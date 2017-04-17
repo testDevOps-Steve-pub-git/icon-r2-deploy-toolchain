@@ -1,6 +1,6 @@
 ---
 stages:
-- name: Build
+- name: Build server and worker
   inputs:
   - service: ${SAMPLE_REPO}
     type: git
@@ -16,10 +16,10 @@ stages:
       # your script here
 
       git log --format="commit=%H" -n 1 >> ./commit.properties
-- name: Test
+- name: Test server
   inputs:
   - type: job
-    stage: Build
+    stage: Build server and worker
     job: Build
     dir_name: null
   jobs:
@@ -46,14 +46,14 @@ stages:
 
       # Run the tests
       npm test
-- name: Deploy
+- name: Deploy server and worker
   inputs:
   - type: job
-    stage: Build
+    stage: Build server and worker
     job: Build
     dir_name: null
   jobs:
-  - name: Deploy-main
+  - name: Deploy server
     type: deployer
     target:
       region_id: ${PROD_REGION_ID}
@@ -63,7 +63,7 @@ stages:
     script: |
       #!/bin/bash
       cf push "${CF_APP}" -d mybluemix.net -n icon-server-devops -f bluemix/dev-main-manifest.yml
-  - name: Deploy-worker
+  - name: Deploy worker
     type: deployer
     target:
       region_id: ${PROD_REGION_ID}
@@ -76,7 +76,7 @@ stages:
 - name: Tagging
   inputs:
   - type: job
-    stage: Build
+    stage: Build server and worker
     job: Build
     dir_name: null
   triggers:

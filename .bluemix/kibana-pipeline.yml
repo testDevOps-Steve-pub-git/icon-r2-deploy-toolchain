@@ -1,6 +1,6 @@
 ---
 stages:
-- name: build-icon-kibana
+- name: Build ICON Kibana
   inputs:
   - service: ${SAMPLE_REPO}
     type: git
@@ -9,10 +9,10 @@ stages:
   jobs:
   - name: Build
     type: builder
-- name: deploy icon kibana
+- name: Deploy ICON Kibana
   inputs:
   - type: job
-    stage: build-icon-kibana
+    stage: Build ICON Kibana
     job: Build
     dir_name: null
   triggers:

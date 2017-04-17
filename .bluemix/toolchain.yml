@@ -88,25 +88,25 @@ services:
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
       execute: false
-  icon-r2-backend-repo:
+  icon-r2-server-repo:
     service_id: githubpublic
     parameters:
       repo_url: 'https://github.com/MOHLTC11/icon-r2-backend'
       type: link
       has_issues: false
       enable_traceability: false
-  icon-r2-backend-pipeline:
+  icon-r2-server-pipeline:
     service_id: pipeline
     parameters:
       services:
-        - icon-r2-backend-repo
+        - icon-r2-server-repo
       name: 'icon-r2-server-pipeline'
       configuration:
         content:
           $ref: icon-server-pipeline.yml
           $refType: text
         env:
-          SAMPLE_REPO: icon-r2-backend-repo
+          SAMPLE_REPO: icon-r2-server-repo
           CF_APP_NAME1: '{{form.pipeline.parameters.server-app-name}}'
           CF_APP_NAME2: '{{form.pipeline.parameters.server-worker-app-name}}'
           PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'

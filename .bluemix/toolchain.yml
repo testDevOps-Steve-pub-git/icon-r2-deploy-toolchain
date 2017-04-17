@@ -42,7 +42,7 @@ services:
           $refType: text
         env:
           SAMPLE_REPO: icon-r2-dhir-nginx-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name}}'
+          CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name-dhir-nginx}}'
           PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
@@ -54,23 +54,23 @@ services:
       type: link
       has_issues: false
       enable_traceability: false
-    icon-r2-kibana-pipeline:
-      service_id: pipeline
-      parameters:
-        services:
-          - icon-r2-kibana-repo
-        name: 'icon-r2-kibana-pipeline'
-        configuration:
-          content:
-            $ref: kibana-pipeline.yml
-            $refType: text
-          env:
-            SAMPLE_REPO: icon-r2-kibana-repo
-            CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name}}'
-            PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
-            PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
-            PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-        execute: false
+  icon-r2-kibana-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-kibana-repo
+      name: 'icon-r2-kibana-pipeline'
+      configuration:
+        content:
+          $ref: kibana-pipeline.yml
+          $refType: text
+      env:
+        SAMPLE_REPO: icon-r2-kibana-repo
+        CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name-kibana}}'
+        PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+        PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+        PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+      execute: false
   icon-r2-backend-repo:
     service_id: githubpublic
     parameters:
@@ -81,6 +81,7 @@ services:
 form:
   pipeline:
     parameters:
-      prod-app-name: 'icon-r2-dhir-nginx'
+      prod-app-name-dhir-nginx: 'icon-r2-dhir-nginx'
+      prod-app-name-kibana: 'icon-kibana'
     schema:
       $ref: deploy.json

@@ -54,7 +54,14 @@
             "type": "string",
             "pattern": "\\S"
         },
-        "server-app-name-worker": {
+        "server-worker-app-name": {
+            "description": {
+                "$ref": "#/messages/deploy.appDescription"
+            },
+            "type": "string",
+            "pattern": "\\S"
+        },
+        "clamav-app-name": {
             "description": {
                 "$ref": "#/messages/deploy.appDescription"
             },
@@ -70,7 +77,8 @@
         "dhir-nginx-app-name",
         "kibana-app-name",
         "server-app-name",
-        "server-worker-app-name"
+        "server-worker-app-name",
+        "clamav-app-name"
     ],
     "form": [
         {
@@ -116,6 +124,14 @@
                 "$ref": "#/messages/deploy.appName.server-worker"
             },
             "key": "server-worker-app-name"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.appName.clamav"
+            },
+            "key": "clamav-app-name"
         },
         {
             "type": "table",

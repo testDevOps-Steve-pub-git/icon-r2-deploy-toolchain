@@ -2,7 +2,7 @@
 stages:
 - name: build dhir-nginx
   inputs:
-  - url: https://github.com/MOHLTC11/icon-r2-dhir-nginx.git
+  - service: ${SAMPLE_REPO}
     type: git
     branch: master
     dir_name: null

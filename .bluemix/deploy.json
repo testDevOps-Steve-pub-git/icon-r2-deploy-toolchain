@@ -81,7 +81,7 @@
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName"
+                "$ref": "#/messages/deploy.appName.frontend-nginx"
             },
             "key": "frontend-nginx-app-name"
         },
@@ -89,7 +89,7 @@
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName"
+                "$ref": "#/messages/deploy.appName.dhir-nginx"
             },
             "key": "dhir-nginx-app-name"
         },
@@ -97,7 +97,7 @@
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName"
+                "$ref": "#/messages/deploy.appName.kibana"
             },
             "key": "kibana-app-name"
         },
@@ -105,7 +105,7 @@
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName"
+                "$ref": "#/messages/deploy.appName.server"
             },
             "key": "server-app-name"
         },
@@ -113,7 +113,7 @@
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName"
+                "$ref": "#/messages/deploy.appName.server-worker"
             },
             "key": "server-worker-app-name"
         },

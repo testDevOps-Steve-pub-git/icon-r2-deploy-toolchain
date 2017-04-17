@@ -38,7 +38,7 @@ services:
             name: 'icon-r2-dhir-nginx-{{toolchain.name}}'
             configuration:
               content:
-                $ref: dhir-nginx.pipeline.yml
+                $ref: dhir-nginx-pipeline.yml
                 $refType: text
               execute: false
   icon-r2-kibana-repo:

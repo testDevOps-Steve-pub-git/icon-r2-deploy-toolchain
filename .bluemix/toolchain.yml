@@ -103,7 +103,7 @@ services:
       name: 'icon-r2-backend-pipeline'
       configuration:
         content:
-          $ref: icon-backend-pipeline.yml
+          $ref: icon-server-pipeline.yml
           $refType: text
         env:
           SAMPLE_REPO: icon-r2-backend-repo

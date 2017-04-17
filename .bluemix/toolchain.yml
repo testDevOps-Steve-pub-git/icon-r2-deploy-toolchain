@@ -42,7 +42,7 @@ services:
           $refType: text
         env:
           SAMPLE_REPO: icon-r2-dhir-nginx-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name-dhir-nginx}}'
+          CF_APP_NAME: '{{form.pipeline.parameters.prod-app-name}'
           PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
@@ -64,7 +64,7 @@ services:
 form:
   pipeline:
     parameters:
-      prod-app-name-dhir-nginx: 'icon-r2-dhir-nginx'
+      prod-app-name: 'icon-r2-dhir-nginx'
       prod-app-name-kibana: 'icon-kibana'
     schema:
       $ref: deploy.json

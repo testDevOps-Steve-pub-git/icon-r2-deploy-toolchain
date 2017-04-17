@@ -42,7 +42,7 @@ services:
           $refType: text
         env:
           SAMPLE_REPO: icon-r2-dhir-nginx-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.dhir-nginx-app-name}'
+          CF_APP_NAME: '{{form.pipeline.parameters.dhir-nginx-app-name}}'
           PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
@@ -66,7 +66,7 @@ services:
           $refType: text
         env:
           SAMPLE_REPO: icon-r2-kibana-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.kibana-app-name}'
+          CF_APP_NAME: '{{form.pipeline.parameters.kibana-app-name}}'
           PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'

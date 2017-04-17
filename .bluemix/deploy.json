@@ -26,7 +26,14 @@
             "description": "The bluemix space",
             "type": "string"
         },
-        "prod-app-name": {
+        "dhir-nginx-app-name": {
+            "description": {
+                "$ref": "#/messages/deploy.appDescription"
+            },
+            "type": "string",
+            "pattern": "\\S"
+        },
+        "kibana-app-name": {
             "description": {
                 "$ref": "#/messages/deploy.appDescription"
             },
@@ -38,7 +45,8 @@
         "prod-region",
         "prod-organization",
         "prod-space",
-        "prod-app-name"
+        "dhir-nginx-app-name",
+        "kibana-app-name"
     ],
     "form": [
         {
@@ -51,7 +59,15 @@
             "title": {
                 "$ref": "#/messages/deploy.appName"
             },
-            "key": "prod-app-name"
+            "key": "dhir-nginx-app-name"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.appName"
+            },
+            "key": "kibana-app-name"
         },
         {
             "type": "table",

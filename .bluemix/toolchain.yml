@@ -129,7 +129,7 @@ services:
           PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          DOMAIN: '{{form.pipeline.parameters.domain}}'
+          PROD_DOMAIN: '{{form.pipeline.parameters.prod-domain}}'
     execute: false
 form:
   pipeline:
@@ -140,6 +140,6 @@ form:
       dhir-nginx-app-name: 'icon-r2-dhir-nginx'
       kibana-app-name: 'icon-r2-kibana'
       clamav-app-name: 'icon-r2-clamav'
-      domain: 'mybluemix.net'
+      prod-domain: 'mybluemix.net'
     schema:
       $ref: deploy.json

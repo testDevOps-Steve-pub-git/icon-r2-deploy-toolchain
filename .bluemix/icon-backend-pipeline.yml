@@ -14,7 +14,7 @@ stages:
     script: |
       #!/bin/bash
       # your script here
-      echo ${DOMAIN}
+      echo "${DOMAIN}"
       git log --format="commit=%H" -n 1 >> ./commit.properties
 - name: Test server
   inputs:
@@ -86,6 +86,9 @@ stages:
     type: secure
   - name: GIT_PASS
     type: secure
+  -name: TARGET_DOMAIN
+    type: text
+    value: ${PROD_DOMAIN}  
   jobs:
   - name: Build
     type: builder

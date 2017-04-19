@@ -26,7 +26,7 @@
             "description": "The bluemix space",
             "type": "string"
         },
-        "domain": {
+        "prod-domain": {
           "description": "Domain to use for deployed apps",
           "type": "string"
         },
@@ -83,7 +83,7 @@
         "server-app-name",
         "server-worker-app-name",
         "clamav-app-name",
-        "domain"
+        "prod-domain"
     ],
     "form": [
         {

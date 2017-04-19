@@ -14,7 +14,7 @@ stages:
     script: |
       #!/bin/bash
       # your script here
-
+      echo ${DOMAIN}
       git log --format="commit=%H" -n 1 >> ./commit.properties
 - name: Test server
   inputs:
@@ -72,7 +72,7 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
-      cf push "${CF_APP}" -d mybluemix.net -n icon-server-devops -f bluemix/dev-worker-manifest.yml
+      cf push "${CF_APP}" -d "${DOMAIN}" -n icon-server-devops -f bluemix/dev-worker-manifest.yml
 - name: Tagging
   inputs:
   - type: job
@@ -101,4 +101,4 @@ hooks:
 - enabled: true
   label: null
   ssl_enabled: false
-  url: https://devops-api.ng.bluemix.net/v1/messaging/webhook/publish      
+  url: https://devops-api.ng.bluemix.net/v1/messaging/webhook/publish

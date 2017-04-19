@@ -105,7 +105,7 @@ stages:
       \ \"${red}Executed failed or had warnings ${no_color}\"\n    ${EXT_DIR}/print_help.sh\n\
       \    exit $RESULT\nfi\necho -e \"${green}Execution complete${no_label}\""
     PORT: '3310'
-    CONTAINER_NAME: icon-clamav-devops
+    CONTAINER_NAME: ${CF_APP}
     DEPLOY_TYPE: red_black
 hooks:
 - enabled: true

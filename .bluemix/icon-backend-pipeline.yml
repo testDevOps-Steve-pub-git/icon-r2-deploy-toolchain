@@ -40,7 +40,6 @@ stages:
       npm install
 
       # Get VCAP env setup
-      bash scripts/services.sh
       node scripts/env.js
 
       # Run the tests

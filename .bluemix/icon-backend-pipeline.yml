@@ -14,7 +14,8 @@ stages:
     script: |
       #!/bin/bash
       # your script here
-      git log --format="commit=%H" -n 1 >> ./commit.properties
+      echo "commit=${GIT_COMMIT}" >> ./commit.properties
+      echo "git_url=${GIT_URL}" >> ./commit.properties
 - name: Test server
   inputs:
   - type: job
@@ -97,11 +98,12 @@ stages:
     artifact_dir: ''
     build_type: shell
     script: "#!/bin/bash\n# your script here\nls\necho  \"get commit number\" \nCOMMIT_NUMBER=`bash\
-      \ scripts/read_properties.sh commit.properties commit`\n\necho \"clone repo\"\
-      \ngit clone https://$GIT_USER:$GIT_PASS@github.com/MOHLTC11/icon-r2-backend.git\n\
-      cd icon-r2-backend\n\necho \"check out $COMMIT_NUMBER\"\ngit checkout ${COMMIT_NUMBER}\n\
-      \n\nTAG=\"build-${BUILD_NUMBER}-$(date +%Y-%m-%d)\"\necho \"Creating tag: $TAG\"\
-      \ngit tag $TAG\n\n#git push --tags\n\n"
+      \ scripts/read_properties.sh commit.properties commit`\nGITURL=`bash scripts/read_properties.sh\
+      \ commit.properties git_url`\n\nURL=`awk -F// '{ print $2}' <<<\"${GITURL}\"\
+      `\n\necho \"clone repo\"\ngit clone https://$GIT_USER:$GIT_PASS@$URL\ncd icon-r2-backend\n\
+      \necho \"check out $COMMIT_NUMBER\"\ngit checkout ${COMMIT_NUMBER}\n\n\nTAG=\"\
+      build-${BUILD_NUMBER}-$(date +%Y-%m-%d)\"\necho \"Creating tag: $TAG\"\ngit\
+      \ tag $TAG\n\n#git push --tags\n\n"
 hooks:
 - enabled: true
   label: null

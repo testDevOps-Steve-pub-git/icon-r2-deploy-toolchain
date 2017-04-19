@@ -87,6 +87,7 @@ stages:
     type: secure
   - name: ICON_DOMAIN
     type: text
+    value: some value
   jobs:
   - name: Build
     type: builder

@@ -22,6 +22,11 @@ stages:
     stage: Build server and worker
     job: Build
     dir_name: null
+  properties:
+  - name: GITUSER
+    type: secure
+  - name: GITPASS
+    type: secure
   jobs:
   - name: Tests
     type: deployer
@@ -40,8 +45,10 @@ stages:
       export PATH=/opt/IBM/node-v6.7.0/bin:$PATH
       npm install
 
-      # Get VCAP env setup
-      node scripts/env.js
+      git clone -b ibm-devops https://${GITUSER}:${GITPASS}@github.com/MOHLTC11/icon-r2-init-setup.git
+
+      # Setup the environment
+      node icon-r2-init-setup/scripts/env.js
 
       # Run the tests
       npm test

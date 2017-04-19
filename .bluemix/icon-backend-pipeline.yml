@@ -14,7 +14,7 @@ stages:
     script: |
       #!/bin/bash
       # your script here
-      echo "${DOMAIN}"
+      echo "${ICON_DOMAIN}"
       git log --format="commit=%H" -n 1 >> ./commit.properties
 - name: Test server
   inputs:
@@ -72,7 +72,7 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
-      cf push "${CF_APP}" -d "${DOMAIN}" -n icon-server-devops -f bluemix/dev-worker-manifest.yml
+      cf push "${CF_APP}" -d "${ICON_DOMAIN}" -n icon-server-devops -f bluemix/dev-worker-manifest.yml
 - name: Tagging
   inputs:
   - type: job
@@ -86,9 +86,9 @@ stages:
     type: secure
   - name: GIT_PASS
     type: secure
-  -name: TARGET_DOMAIN
+  -name: ICON_DOMAIN
     type: text
-    value: ${PROD_DOMAIN}  
+    value: ${ICON_DOMAIN}
   jobs:
   - name: Build
     type: builder

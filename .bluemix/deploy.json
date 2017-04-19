@@ -26,7 +26,7 @@
             "description": "The bluemix space",
             "type": "string"
         },
-        "prod-domain": {
+        "icon-domain": {
           "description": "Domain to use for deployed apps",
           "type": "string"
         },
@@ -83,7 +83,7 @@
         "server-app-name",
         "server-worker-app-name",
         "clamav-app-name",
-        "prod-domain"
+        "icon-domain"
     ],
     "form": [
         {
@@ -142,9 +142,9 @@
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/domain"
+                "$ref": "#/messages/icon-domain"
             },
-            "key": "domain"
+            "key": "icon-domain"
         },
         {
             "type": "table",

@@ -51,6 +51,10 @@ stages:
     stage: Build server and worker
     job: Build
     dir_name: null
+  properties:
+  - name: ICON_DOMAIN
+    type: text
+    value: ${ICON_DOMAIN}
   jobs:
   - name: Deploy server
     type: deployer
@@ -61,7 +65,7 @@ stages:
       application: ${CF_APP_NAME1}
     script: |
       #!/bin/bash
-      cf push "${CF_APP}" -d mybluemix.net -n icon-server-devops -f bluemix/dev-main-manifest.yml
+      cf push "${CF_APP}" -d "${ICON_DOMAIN}" -n icon-server-devops -f bluemix/dev-main-manifest.yml
   - name: Deploy worker
     type: deployer
     target:
@@ -71,7 +75,7 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
-      cf push "${CF_APP}" -d bluemix.net -n icon-server-devops -f bluemix/dev-worker-manifest.yml
+      cf push "${CF_APP}" -d "${ICON_DOMAIN}" -n icon-server-devops -f bluemix/dev-worker-manifest.yml
 - name: Tagging
   inputs:
   - type: job

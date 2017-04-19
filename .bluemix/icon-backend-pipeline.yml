@@ -86,9 +86,9 @@ stages:
     type: secure
   - name: GIT_PASS
     type: secure
-  -name: ICON_DOMAIN
+  - name: ICON_DOMAIN
     type: text
-    value: test
+    value: ${ICON_DOMAIN}
   jobs:
   - name: Build
     type: builder

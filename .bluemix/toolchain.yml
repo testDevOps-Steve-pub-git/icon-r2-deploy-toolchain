@@ -110,7 +110,7 @@ services:
   icon-r2-server-repo:
     service_id: githubpublic
     parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-backend'
+      repo_url: '--recursive https://github.com/MOHLTC11/icon-r2-backend'
       type: link
       has_issues: false
       enable_traceability: false

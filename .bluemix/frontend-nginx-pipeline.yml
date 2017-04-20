@@ -63,7 +63,7 @@ stages:
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
-    script: "${DEPLOY_SCRIPT}\n deploy "cf push cf push \"${CF_APP}\" -d \"${ICON_DOMAIN}\" -n nwhu -n gbhu -f bluemix/dev-manifest.yml"
+    script: "#!/bin/bash\n ${DEPLOY_SCRIPT}\n deploy \"cf push \"${CF_APP}\" -d \"${ICON_DOMAIN}\" -n nwhu -n gbhu -f bluemix/dev-manifest.yml\n"
 hooks:
 - enabled: true
   label: null

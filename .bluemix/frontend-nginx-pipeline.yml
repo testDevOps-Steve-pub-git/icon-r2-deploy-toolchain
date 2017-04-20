@@ -53,7 +53,7 @@ stages:
     type: text
     value: ${ICON_DOMAIN}
   - name: BLUE_GREEN
-    type: text
+    type: text_area
     value: ${DEPLOY_SCRIPT}
   triggers:
   - type: stage

@@ -136,23 +136,16 @@ services:
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
-          DEPLOY_SCRIPT: '{{form.pipeline.parameters.scripts}}'
+          DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
     execute: false
 form:
   pipeline:
-    parameters:
-      server-app-name: 'icon-r2-server'
-      server-worker-app-name: 'icon-r2-server-worker'
-      frontend-nginx-app-name: 'icon-r2-frontend-nginx'
-      dhir-nginx-app-name: 'icon-r2-dhir-nginx'
-      kibana-app-name: 'icon-r2-kibana'
-      clamav-app-name: 'icon-r2-clamav'
-      icon-domain: 'mybluemix.net'
-      script: | 
-        #!/bin/bash 
-        # Push app
-        blue_green_deploy(COMMAND){ 
-          if ! cf app $CF_APP; then  
+    scripts:
+      blue-green: | 
+        #!/bin/bash 
+        # Push app
+        blue_green_deploy(COMMAND){ 
+          if ! cf app $CF_APP; then  
               $COMMAND
           else 
               OLD_CF_APP=${CF_APP}-OLD-$(date +"%s") 
@@ -177,6 +170,15 @@ form:
           # View logs
           cf logs "${CF_APP}" --recent
         }
+    parameters:
+      server-app-name: 'icon-r2-server'
+      server-worker-app-name: 'icon-r2-server-worker'
+      frontend-nginx-app-name: 'icon-r2-frontend-nginx'
+      dhir-nginx-app-name: 'icon-r2-dhir-nginx'
+      kibana-app-name: 'icon-r2-kibana'
+      clamav-app-name: 'icon-r2-clamav'
+      icon-domain: 'mybluemix.net'
+     
     schema:
       $ref: deploy.json
 

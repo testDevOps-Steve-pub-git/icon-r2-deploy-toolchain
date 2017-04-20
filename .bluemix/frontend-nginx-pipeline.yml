@@ -52,6 +52,9 @@ stages:
   - name: ICON_DOMAIN
     type: text
     value: ${ICON_DOMAIN}
+  - name: BLUE_GREEN
+    type: text
+    value: ${DEPLOY_SCRIPT}
   triggers:
   - type: stage
   jobs:
@@ -63,7 +66,9 @@ stages:
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
-    script: ${DEPLOY_SCRIPT} + "adsa"
+    script: |
+    ${DEPLOY_SCRIPT}
+     deploy "cf push ${CF_APP} -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/dev-worker-manifest.yml"
 hooks:
 - enabled: true
   label: null

@@ -1,184 +1,147 @@
-version: 2
+version: 2
 template:
-  name: ICON r2 Development Toolchain Template
-  description: This Toolchain is for Developing ICON r2.  Each deployment is tagged.
-  info:
-    git url: '[https://github.com/ileneruth/toolchain-test](https://github.com/ileneruth/toolchain-test)'
-    git branch: '[master](https://github.com/ileneruth/toolchain-test/tree/master)'
+  name: ICON r2 Development Toolchain Template
+  description: This Toolchain is for Developing ICON r2.  Each deployment is tagged.
+  info:
+    git url: '[https://github.com/ileneruth/toolchain-test](https://github.com/kulkarniankita/toolchain-test)'
+    git branch: '[master](https://github.com/kulkarniankita/toolchain-test/tree/master)'
 toolchain:
-  name: icon2-dev-toolchain-{{timestamp}}
+  name: icon2-dev-toolchain-{{timestamp}}
 services:
-  icon-r2-clamav-repo:
-    service_id: githubpublic
-    parameters:
-      repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-clamav'
-      type: link
-      has_issues: false
-      enable_traceability: false
-  icon-r2-clamav-pipeline:
-    service_id: pipeline
-    parameters:
-      services:
-        - icon-r2-clamav-repo
-      name: 'icon-r2-clamav-pipeline'
-      configuration:
-        content:
-          $ref: clamav-pipeline.yml
-          $refType: text
-        env:
-          SAMPLE_REPO: icon-r2-clamav-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.clamav-app-name}}'
-          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
-          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
-          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
-          DEPLOY_SCRIPT: '{{form.pipeline.parameters.scripts}}'
-      execute: false
-  icon-r2-frontend-nginx-repo:
-    service_id: githubpublic
-    parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-frontend-nginx'
-      type: link
-      has_issues: false
-      enable_traceability: false
-  icon-r2-frontend-nginx-pipeline:
-    service_id: pipeline
-    parameters:
-      services:
-        - icon-r2-frontend-nginx-repo
-      name: 'icon-r2-frontend-nginx-pipeline'
-      configuration:
-        content:
-          $ref: frontend-nginx-pipeline.yml
-          $refType: text
-        env:
-          SAMPLE_REPO: icon-r2-frontend-nginx-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.frontend-nginx-app-name}}'
-          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
-          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
-          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
-          DEPLOY_SCRIPT: '{{form.pipeline.parameters.scripts}}'
-      execute: false
-  icon-r2-dhir-nginx-repo:
-    service_id: githubpublic
-    parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-dhir-nginx'
-      type: link
-      has_issues: false
-      enable_traceability: false
-  icon-r2-dhir-nginx-pipeline:
-    service_id: pipeline
-    parameters:
-      services:
-        - icon-r2-dhir-nginx-repo
-      name: 'icon-r2-dhir-nginx-pipeline'
-      configuration:
-        content:
-          $ref: dhir-nginx-pipeline.yml
-          $refType: text
-        env:
-          SAMPLE_REPO: icon-r2-dhir-nginx-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.dhir-nginx-app-name}}'
-          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
-          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
-          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          DEPLOY_SCRIPT: '{{form.pipeline.parameters.scripts}}'
-      execute: false
-  icon-r2-kibana-repo:
-    service_id: githubpublic
-    parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-kibana'
-      type: link
-      has_issues: false
-      enable_traceability: false
-  icon-r2-kibana-pipeline:
-    service_id: pipeline
-    parameters:
-      services:
-        - icon-r2-kibana-repo
-      name: 'icon-r2-kibana-pipeline'
-      configuration:
-        content:
-          $ref: kibana-pipeline.yml
-          $refType: text
-        env:
-          SAMPLE_REPO: icon-r2-kibana-repo
-          CF_APP_NAME: '{{form.pipeline.parameters.kibana-app-name}}'
-          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
-          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
-          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          DEPLOY_SCRIPT: '{{form.pipeline.parameters.scripts}}'
-      execute: false
-  icon-r2-server-repo:
-    service_id: githubpublic
-    parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-backend'
-      type: link
-      has_issues: false
-      enable_traceability: false
-  icon-r2-server-pipeline:
-    service_id: pipeline
-    parameters:
-      services:
-        - icon-r2-server-repo
-      name: 'icon-r2-backend-pipeline'
-      configuration:
-        content:
-          $ref: icon-backend-pipeline.yml
-          $refType: text
-        env:
-          SAMPLE_REPO: icon-r2-server-repo
-          CF_APP_NAME1: '{{form.pipeline.parameters.server-app-name}}'
-          CF_APP_NAME2: '{{form.pipeline.parameters.server-worker-app-name}}'
-          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
-          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
-          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
-          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
-          DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
-    execute: false
+  icon-r2-clamav-repo:
+    service_id: githubpublic
+    parameters:
+      repo_name: '{{toolchain.name}}'
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-clamav'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-clamav-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-clamav-repo
+      name: 'icon-r2-clamav-pipeline'
+      configuration:
+        content:
+          $ref: clamav-pipeline.yml
+          $refType: text
+        env:
+          SAMPLE_REPO: icon-r2-clamav-repo
+          CF_APP_NAME: '{{form.pipeline.parameters.clamav-app-name}}'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
+      execute: false
+  icon-r2-frontend-nginx-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-frontend-nginx'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-frontend-nginx-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-frontend-nginx-repo
+      name: 'icon-r2-frontend-nginx-pipeline'
+      configuration:
+        content:
+          $ref: frontend-nginx-pipeline.yml
+          $refType: text
+        env:
+          SAMPLE_REPO: icon-r2-frontend-nginx-repo
+          CF_APP_NAME: '{{form.pipeline.parameters.frontend-nginx-app-name}}'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
+      execute: false
+  icon-r2-dhir-nginx-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-dhir-nginx'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-dhir-nginx-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-dhir-nginx-repo
+      name: 'icon-r2-dhir-nginx-pipeline'
+      configuration:
+        content:
+          $ref: dhir-nginx-pipeline.yml
+          $refType: text
+        env:
+          SAMPLE_REPO: icon-r2-dhir-nginx-repo
+          CF_APP_NAME: '{{form.pipeline.parameters.dhir-nginx-app-name}}'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+      execute: false
+  icon-r2-kibana-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-kibana'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-kibana-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-kibana-repo
+      name: 'icon-r2-kibana-pipeline'
+      configuration:
+        content:
+          $ref: kibana-pipeline.yml
+          $refType: text
+        env:
+          SAMPLE_REPO: icon-r2-kibana-repo
+          CF_APP_NAME: '{{form.pipeline.parameters.kibana-app-name}}'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+      execute: false
+  icon-r2-server-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-backend'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-server-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-server-repo
+      name: 'icon-r2-backend-pipeline'
+      configuration:
+        content:
+          $ref: icon-backend-pipeline.yml
+          $refType: text
+        env:
+          SAMPLE_REPO: icon-r2-server-repo
+          CF_APP_NAME1: '{{form.pipeline.parameters.server-app-name}}'
+          CF_APP_NAME2: '{{form.pipeline.parameters.server-worker-app-name}}'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
+    execute: false
 form:
-  pipeline:
-    scripts:
-      blue-green: | 
-        #!/bin/bash 
-        # Push app
-        blue_green_deploy(COMMAND){ 
-          if ! cf app $CF_APP; then  
-              $COMMAND
-          else 
-              OLD_CF_APP=${CF_APP}-OLD-$(date +"%s") 
-              rollback() {  
-                set +e  
-                if cf app $OLD_CF_APP; then
-                  cf logs $CF_APP --recent
-                  cf delete $CF_APP -f
-                  cf rename $OLD_CF_APP $CF_APP
-                fi
-              exit 1
-               }
-               set -e
-               trap rollback ERR
-               cf rename $CF_APP $OLD_CF_APP
-               cf push $CF_APP
-               cf delete $OLD_CF_APP -f
-          fi
-          # Export app name and URL for use in later Pipeline jobs
-          export CF_APP_NAME="$CF_APP"
-          export APP_URL=http://$(cf app $CF_APP_NAME | grep urls: | awk '{print $2}')
-          # View logs
-          cf logs "${CF_APP}" --recent
-        }
-    parameters:
-      server-app-name: 'icon-r2-server'
-      server-worker-app-name: 'icon-r2-server-worker'
-      frontend-nginx-app-name: 'icon-r2-frontend-nginx'
-      dhir-nginx-app-name: 'icon-r2-dhir-nginx'
-      kibana-app-name: 'icon-r2-kibana'
-      clamav-app-name: 'icon-r2-clamav'
-      icon-domain: 'mybluemix.net'
-     
-    schema:
-      $ref: deploy.json
-
+  pipeline:
+    parameters:
+      server-app-name: 'icon-r2-server'
+      server-worker-app-name: 'icon-r2-server-worker'
+      frontend-nginx-app-name: 'icon-r2-frontend-nginx'
+      dhir-nginx-app-name: 'icon-r2-dhir-nginx'
+      kibana-app-name: 'icon-r2-kibana'
+      clamav-app-name: 'icon-r2-clamav'
+      icon-domain: 'mybluemix.net'
+    schema:
+      $ref: deploy.json

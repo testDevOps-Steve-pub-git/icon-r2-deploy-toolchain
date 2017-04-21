@@ -148,7 +148,7 @@ form:
           if ! cf app \$CF_APP; then  
             cf push \$CF_APP \$1
           else
-            OLD_CF_APP=\${CF_APP}-OLD-\$(date +"%s")
+            OLD_CF_APP=\${CF_APP}-OLD-$(date +"%s")
             rollback() {
               set +e  
               if cf app \$OLD_CF_APP; then
@@ -166,7 +166,7 @@ form:
           fi
           # Export app name and URL for use in later Pipeline jobs
           export CF_APP_NAME="\$CF_APP"
-          export APP_URL=http://\$(cf app \$CF_APP_NAME | grep urls: | awk '{print $2}')
+          export APP_URL=http://$(cf app \$CF_APP_NAME | grep urls: | awk '{print $2}')
           # View logs
           cf logs "\${CF_APP}" --recent
         }

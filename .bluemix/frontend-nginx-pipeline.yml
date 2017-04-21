@@ -67,9 +67,9 @@ stages:
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
     script: |-
-    echo "${BLUE_GREEN}" > blue_green.sh
-    source blue_green.sh
-    deploy " -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/dev-worker-manifest.yml"
+      echo "${BLUE_GREEN}" > blue_green.sh
+      source blue_green.sh
+      deploy " -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/dev-worker-manifest.yml"
 hooks:
 - enabled: true
   label: null

@@ -69,7 +69,7 @@ stages:
     script: |-
       echo "${BLUE_GREEN}" > blue_green.sh
       source blue_green.sh
-      deploy " -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/dev-worker-manifest.yml"
+      deploy "-d mybluemix.net -n nwhu -n gbhu -f bluemix/dev-manifest.yml "
 hooks:
 - enabled: true
   label: null

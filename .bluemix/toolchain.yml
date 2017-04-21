@@ -142,11 +142,10 @@ form:
   pipeline:
     scripts:
       blue-green: |-
-        #!/bin/bash
         # Push app
-        deploy(COMMAND){
+        deploy(){
           if ! cf app $CF_APP; then  
-            cf push $CF_APP
+            cf push $CF_APP $1
           else
             OLD_CF_APP=${CF_APP}-OLD-$(date +"%s")
             rollback() {

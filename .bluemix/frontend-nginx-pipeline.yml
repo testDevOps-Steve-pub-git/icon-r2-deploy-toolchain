@@ -68,7 +68,7 @@ stages:
       application: ${CF_APP_NAME}
     script: |
       "${BLUE_GREEN}"
-      deploy "cf push "${CF_APP}" -d "${ICON_DOMAIN}" -n "${CF_APP}" -f bluemix/dev-worker-manifest.yml"
+      deploy "-d "${ICON_DOMAIN}" -n "${CF_APP}" -f bluemix/dev-worker-manifest.yml"
 hooks:
 - enabled: true
   label: null

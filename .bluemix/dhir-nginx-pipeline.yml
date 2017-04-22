@@ -16,6 +16,10 @@ stages:
     stage: Build dhir nginx
     job: Build
     dir_name: null
+  properties:
+  - name: BLUE_GREEN
+    type: text_area
+    value: ${DEPLOY_SCRIPT}
   triggers:
   - type: stage
   jobs:
@@ -26,9 +30,12 @@ stages:
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
-    script: |
+    script: |-
       #!/bin/bash
-      cf push "${CF_APP}" -n dhir-nginx-devops -d mybluemix.net -f bluemix/dev-manifest.yml
+      
+      echo "${BLUE_GREEN}" > blue_green.sh
+      chmod +x blue_green.sh
+      ./blue_greene.sh -n dhir-nginx-devops -d mybluemix.net -f bluemix/dev-manifest.yml
 hooks:
 - enabled: true
   label: null

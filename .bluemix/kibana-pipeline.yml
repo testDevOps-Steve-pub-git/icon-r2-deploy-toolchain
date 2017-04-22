@@ -15,6 +15,10 @@ stages:
     stage: Build ICON Kibana
     job: Build
     dir_name: null
+  properties:
+  - name: BLUE_GREEN
+    type: text_area
+    value: ${DEPLOY_SCRIPT}
   triggers:
   - type: stage
   jobs:
@@ -25,8 +29,12 @@ stages:
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
-    script: "#!/bin/bash\ncf push \"${CF_APP}\" -f bluemix/dev-manifest.yml -n icon-kibana-devops\
-      \ -d mybluemix.net \n"
+    script: |-
+      #!/bin/bash
+      
+      echo "${BLUE_GREEN}" > blue_green.sh
+      chmod +x blue_green.sh
+      ./blue_greene.sh -f bluemix/dev-manifest.yml -n icon-kibana-devops -d mybluemix.net
 hooks:
 - enabled: true
   label: null

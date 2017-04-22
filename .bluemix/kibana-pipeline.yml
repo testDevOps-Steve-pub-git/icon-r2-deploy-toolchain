@@ -10,7 +10,8 @@ stages:
   - name: Build
     type: builder
     build_type: shell
-    script: 
+    script: |-
+      #!/bin/bash
 - name: Deploy ICON Kibana
   inputs:
   - type: job
@@ -23,7 +24,6 @@ stages:
   - name: BLUE_GREEN
     type: text_area
     value: ${DEPLOY_SCRIPT}
-
   jobs:
   - name: Deploy
     type: deployer

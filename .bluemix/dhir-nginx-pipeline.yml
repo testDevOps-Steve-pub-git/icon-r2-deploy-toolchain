@@ -35,7 +35,7 @@ stages:
       
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_greene.sh -n dhir-nginx-devops -d mybluemix.net -f bluemix/dev-manifest.yml
+      ./blue_green.sh -n dhir-nginx-devops -d mybluemix.net -f bluemix/dev-manifest.yml
 hooks:
 - enabled: true
   label: null

@@ -9,6 +9,7 @@ stages:
   jobs:
   - name: Build
     type: builder
+    artifact_dir: ''
 - name: Deploy ICON Kibana
   inputs:
   - type: job
@@ -34,7 +35,7 @@ stages:
       
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_greene.sh -f bluemix/dev-manifest.yml -n icon-kibana-devops -d mybluemix.net
+      ./blue_green.sh -f bluemix/dev-manifest.yml -n icon-kibana-devops -d mybluemix.net
 hooks:
 - enabled: true
   label: null

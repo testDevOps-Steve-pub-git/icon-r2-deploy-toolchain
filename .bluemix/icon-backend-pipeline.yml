@@ -45,7 +45,7 @@ stages:
 
       # Run the tests
       npm test
-- name: Deploy server
+- name: Deploy server and worker
   inputs:
   - type: job
     stage: Build server and worker
@@ -72,17 +72,6 @@ stages:
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
       ./blue_green.sh -d ${ICON_DOMAIN} -n icon-server-devops -f bluemix/dev-main-manifest.yml
-- name: Deploy worker
-  inputs:
-  - type: job
-    stage: Build server and worker
-    job: Build
-    dir_name: null
-  properties:
-  - name: BLUE_GREEN
-    type: text_area
-    value: ${DEPLOY_SCRIPT}
-  jobs:
   - name: Deploy worker
     type: deployer
     target:
@@ -92,10 +81,7 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
-      
-      echo "${BLUE_GREEN}" > blue_green.sh
-      chmod +x blue_green.sh
-      ./blue_green.sh -f bluemix/dev-worker-manifest.yml
+      cf push ${CF_APP} -f bluemix/dev-worker-manifest.yml
 - name: Tagging
   inputs:
   - type: job

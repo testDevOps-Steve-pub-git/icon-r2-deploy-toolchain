@@ -10,8 +10,7 @@ stages:
   - name: Build
     type: builder
     build_type: shell
-    script: |-
-    #!/bin/bash
+    script: 
 - name: Deploy ICON Kibana
   inputs:
   - type: job

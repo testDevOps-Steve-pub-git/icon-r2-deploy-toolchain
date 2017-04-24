@@ -173,8 +173,6 @@ form:
           cf push \$CF_APP \${OPTIONS}
           cf delete \$OLD_CF_APP -f
         fi
-
-        cf logs "\${CF_APP}" --recent
     parameters:
       server-app-name: 'icon-r2-server'
       server-worker-app-name: 'icon-r2-server-worker'

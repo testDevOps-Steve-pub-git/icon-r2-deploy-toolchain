@@ -71,7 +71,7 @@ stages:
       
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_green.sh -d ${ICON_DOMAIN} -n icon-server-devops -f bluemix/dev-main-manifest.yml
+      ./blue_green.sh -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/dev-main-manifest.yml
   - name: Deploy worker
     type: deployer
     target:

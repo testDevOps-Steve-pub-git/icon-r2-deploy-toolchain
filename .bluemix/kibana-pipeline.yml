@@ -40,7 +40,7 @@ stages:
       
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_green.sh -f bluemix/dev-manifest.yml -n icon-kibana-devops -d ${ICON_DOMAIN}
+      ./blue_green.sh -f bluemix/dev-manifest.yml -n ${CF_APP} -d ${ICON_DOMAIN}
 hooks:
 - enabled: true
   label: null

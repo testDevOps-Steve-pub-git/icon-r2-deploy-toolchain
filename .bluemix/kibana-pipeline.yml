@@ -24,6 +24,9 @@ stages:
   - name: BLUE_GREEN
     type: text_area
     value: ${DEPLOY_SCRIPT}
+  - name: ICON_DOMAIN
+    type: text
+    value: ${ICON_DOMAIN}
   jobs:
   - name: Deploy
     type: deployer
@@ -37,7 +40,7 @@ stages:
       
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_green.sh -f bluemix/dev-manifest.yml -n icon-kibana-devops -d mybluemix.net
+      ./blue_green.sh -f bluemix/dev-manifest.yml -n icon-kibana-devops -d ${ICON_DOMAIN}
 hooks:
 - enabled: true
   label: null

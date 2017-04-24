@@ -85,6 +85,7 @@ services:
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
+          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
       execute: false
   icon-r2-kibana-repo:
     service_id: githubpublic
@@ -110,6 +111,7 @@ services:
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
+          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
       execute: false
   icon-r2-server-repo:
     service_id: githubpublic

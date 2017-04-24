@@ -71,7 +71,7 @@ stages:
       
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_green.sh  -d mybluemix.net -n nwhu -n gbhu -f bluemix/dev-manifest.yml
+      ./blue_green.sh  -d ${ICON_DOMAIN} -n nwhu -n gbhu -f bluemix/dev-manifest.yml
 hooks:
 - enabled: true
   label: null

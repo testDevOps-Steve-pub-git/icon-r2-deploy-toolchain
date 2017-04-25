@@ -47,6 +47,7 @@ stages:
       npm test
   - name: Slack
     type: Build
+    build_type: shell
     script: |
       #!/bin/bash
       bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
@@ -88,6 +89,7 @@ stages:
       cf push ${CF_APP} -f bluemix/dev-worker-manifest.yml
   - name: Slack
     type: Build
+    build_type: shell
     script: |-
       #!/bin/bash
       bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} deploy-stage ${CF_APP} for build ${BUILD_NUMBER} is successfully deployed to org ${CF_ORG} space ${CF_SPACE}

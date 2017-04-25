@@ -3,8 +3,8 @@ template:
   name: ICON r2 Development Toolchain Template
   description: This Toolchain is for Developing ICON r2.  Each deployment is tagged.
   info:
-    git url: '[https://github.com/ileneruth/toolchain-test](https://github.com/ileneruth/toolchain-test)'
-    git branch: '[master](https://github.com/ileneruth/toolchain-test/tree/master)'
+    git url: '[https://github.com/kulkarniankita/toolchain-test](https://github.com/kulkarniankita/toolchain-test)'
+    git branch: '[icon-test](https://github.com/kulkarniankita/toolchain-test/tree/icon-test)'
 toolchain:
   name: icon2-dev-toolchain-{{timestamp}}
 services:

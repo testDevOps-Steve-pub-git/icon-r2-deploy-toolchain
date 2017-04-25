@@ -46,7 +46,7 @@ stages:
       # Run the tests
       npm test
   - name: Slack
-    type: Build
+    type: builder
     build_type: shell
     script: |
       #!/bin/bash
@@ -89,7 +89,7 @@ stages:
       #!/bin/bash
       cf push ${CF_APP} -f bluemix/dev-worker-manifest.yml
   - name: Slack
-    type: Build
+    type: builder
     build_type: shell
     script: |-
       #!/bin/bash

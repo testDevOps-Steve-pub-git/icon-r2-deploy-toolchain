@@ -49,7 +49,7 @@ stages:
     type: Build
     script: |
       #!/bin/bash
-      bash scripts/slack-webhook.sh ${slack-webhook-url} ${slack-channel} test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
+      bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
   inputs:
   - type: job
     stage: Build server and worker
@@ -90,7 +90,7 @@ stages:
     type: Build
     script: |-
       #!/bin/bash
-      bash scripts/slack-webhook.sh ${slack-webhook-url} ${slack-channel} deploy-stage ${CF_APP} for build ${BUILD_NUMBER} is successfully deployed to org ${CF_ORG} space ${CF_SPACE}
+      bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} deploy-stage ${CF_APP} for build ${BUILD_NUMBER} is successfully deployed to org ${CF_ORG} space ${CF_SPACE}
 - name: Tagging
   inputs:
   - type: job

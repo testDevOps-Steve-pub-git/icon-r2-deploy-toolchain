@@ -139,6 +139,8 @@ services:
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
+          SLACK_WEBHOOK_URL: '{{form.pipeline.parameters.slack-webhook-url}}'
+          SLACK_CHANNEL: '{{form.pipeline.parameters.slack-channel}}'
     execute: false
 form:
   pipeline:

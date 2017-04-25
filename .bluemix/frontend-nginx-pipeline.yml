@@ -6,6 +6,10 @@ stages:
     type: git
     branch: ibm-devops
     dir_name: null
+  properties:
+  - name: SLACK_WEBHOOK_PATH
+    value: ${SLACK_WEBHOOK_PATH}
+    type: text
   jobs:
   - name: Build
     type: builder
@@ -31,6 +35,10 @@ stages:
     dir_name: null
   triggers:
   - type: stage
+  properties:
+  - name: SLACK_WEBHOOK_PATH
+    value: ${SLACK_WEBHOOK_PATH}
+    type: text
   jobs:
   - name: Test
     type: tester
@@ -55,6 +63,9 @@ stages:
   - name: BLUE_GREEN
     type: text_area
     value: ${DEPLOY_SCRIPT}
+  - name: SLACK_WEBHOOK_PATH
+    value: ${SLACK_WEBHOOK_PATH}
+    type: text
   triggers:
   - type: stage
   jobs:

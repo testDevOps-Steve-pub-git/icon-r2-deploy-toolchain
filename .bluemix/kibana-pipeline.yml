@@ -6,6 +6,10 @@ stages:
     type: git
     branch: master
     dir_name: null
+  properties:
+  - name: SLACK_WEBHOOK_PATH
+    value: ${SLACK_WEBHOOK_PATH}
+    type: text
   jobs:
   - name: Build
     type: builder
@@ -27,6 +31,9 @@ stages:
   - name: ICON_DOMAIN
     type: text
     value: ${ICON_DOMAIN}
+  - name: SLACK_WEBHOOK_PATH
+    value: ${SLACK_WEBHOOK_PATH}
+    type: text
   jobs:
   - name: Deploy
     type: deployer

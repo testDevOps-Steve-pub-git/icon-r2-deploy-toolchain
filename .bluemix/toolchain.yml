@@ -181,5 +181,7 @@ form:
       kibana-app-name: 'icon-r2-kibana'
       clamav-app-name: 'icon-r2-clamav'
       icon-domain: 'mybluemix.net'
+      slack-webhook-url: 'https://hooks.slack.com/services/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'
+      slack-channel: 'moh-goo-guest'
     schema:
       $ref: deploy.json

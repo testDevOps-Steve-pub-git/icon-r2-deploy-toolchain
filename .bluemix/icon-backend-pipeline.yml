@@ -51,6 +51,7 @@ stages:
     script: |
       #!/bin/bash
       bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
+- name: Deploy server
   inputs:
   - type: job
     stage: Build server and worker

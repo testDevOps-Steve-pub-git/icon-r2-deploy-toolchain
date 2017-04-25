@@ -30,6 +30,12 @@ stages:
   - name: SLACK_WEBHOOK_PATH
     value: ${SLACK_WEBHOOK_PATH}
     type: text
+  - name: SLACK_WEBHOOK_URL
+    value: ${SLACK_WEBHOOK_URL}
+    type: text
+  - name: SLACK_CHANNEL
+    value: ${SLACK_CHANNEL}
+    type: text
   jobs:
   - name: Tests
     type: deployer
@@ -63,7 +69,7 @@ stages:
     artifact_dir: ''
     script: |
       #!/bin/bash
-      bash scripts/slack-webhook.sh https://hooks.slack.com/services/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 icon2-builds test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
+      bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
 - name: Deploy server
   inputs:
   - type: job
@@ -79,6 +85,12 @@ stages:
     value: ${DEPLOY_SCRIPT}
   - name: SLACK_WEBHOOK_PATH
     value: ${SLACK_WEBHOOK_PATH}
+    type: text
+  - name: SLACK_WEBHOOK_URL
+    value: ${SLACK_WEBHOOK_URL}
+    type: text
+  - name: SLACK_CHANNEL
+    value: ${SLACK_CHANNEL}
     type: text
   jobs:
   - name: Deploy server
@@ -114,7 +126,7 @@ stages:
     artifact_dir: ''
     script: |-
       #!/bin/bash
-      bash scripts/slack-webhook.sh https://hooks.slack.com/services/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 icon2-builds deploy-stage ${CF_APP} for build ${BUILD_NUMBER} is successfully deployed to org ${CF_ORG} space ${CF_SPACE}
+      bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} deploy-stage ${CF_APP} for build ${BUILD_NUMBER} is successfully deployed to org ${CF_ORG} space ${CF_SPACE}
 - name: Tagging
   inputs:
   - type: job

@@ -47,6 +47,7 @@ stages:
       npm test
   - name: Slack
     type: builder
+    artifact_dir: ''
     build_type: shell
     script: |
       #!/bin/bash
@@ -91,6 +92,7 @@ stages:
   - name: Slack
     type: builder
     build_type: shell
+    artifact_dir: ''
     script: |-
       #!/bin/bash
       bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} deploy-stage ${CF_APP} for build ${BUILD_NUMBER} is successfully deployed to org ${CF_ORG} space ${CF_SPACE}

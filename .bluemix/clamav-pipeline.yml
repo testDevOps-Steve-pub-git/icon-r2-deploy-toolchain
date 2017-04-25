@@ -6,6 +6,10 @@ stages:
     type: git
     branch: master
     dir_name: null
+  properties:
+  - name: SLACK_WEBHOOK_PATH
+    value: ${SLACK_WEBHOOK_PATH}
+    type: text
   jobs:
   - name: Build
     type: builder
@@ -56,6 +60,10 @@ stages:
     dir_name: null
   triggers:
   - type: stage
+  properties:
+  - name: SLACK_WEBHOOK_PATH
+    value: ${SLACK_WEBHOOK_PATH}
+    type: text
   jobs:
   - name: Deploy
     type: deployer

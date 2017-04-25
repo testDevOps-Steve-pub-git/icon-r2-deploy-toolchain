@@ -33,6 +33,7 @@ services:
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
+          DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
       execute: false
   icon-r2-frontend-nginx-repo:
     service_id: githubpublic
@@ -58,6 +59,7 @@ services:
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
+          DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
       execute: false
   icon-r2-dhir-nginx-repo:
     service_id: githubpublic
@@ -82,6 +84,8 @@ services:
           PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+          DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
+          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
       execute: false
   icon-r2-kibana-repo:
     service_id: githubpublic
@@ -106,6 +110,8 @@ services:
           PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+          DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
+          ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
       execute: false
   icon-r2-server-repo:
     service_id: githubpublic
@@ -132,9 +138,43 @@ services:
           PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
+          DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
+          SLACK_WEBHOOK_URL: '{{form.pipeline.parameters.slack-webhook-url}}'
+          SLACK_CHANNEL: '{{form.pipeline.parameters.slack-channel}}'
     execute: false
 form:
   pipeline:
+    scripts:
+      blue-green: |-
+        #!/bin/bash
+        echo "Getting options"
+        OPTIONS=
+        for i in \$*
+        do
+          OPTIONS="\${OPTIONS} \${i}"
+        done
+
+        echo "Blue Green Deployment"
+
+        if ! cf app \$CF_APP; then  
+          cf push \$CF_APP \${OPTIONS}
+        else
+          OLD_CF_APP=\${CF_APP}-OLD-$(date +"%s")
+          rollback() {
+            set +e  
+            if cf app \$OLD_CF_APP; then
+              cf logs \$CF_APP --recent
+              cf delete \$CF_APP -f
+              cf rename \$OLD_CF_APP \$CF_APP
+            fi
+            exit 1
+          }
+          set -e
+          trap rollback ERR
+          cf rename \$CF_APP \$OLD_CF_APP
+          cf push \$CF_APP \${OPTIONS}
+          cf delete \$OLD_CF_APP -f
+        fi
     parameters:
       server-app-name: 'icon-r2-server'
       server-worker-app-name: 'icon-r2-server-worker'
@@ -143,5 +183,7 @@ form:
       kibana-app-name: 'icon-r2-kibana'
       clamav-app-name: 'icon-r2-clamav'
       icon-domain: 'mybluemix.net'
+      slack-webhook-url: 'https://hooks.slack.com/services/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'
+      slack-channel: 'moh-goo-guest'
     schema:
       $ref: deploy.json

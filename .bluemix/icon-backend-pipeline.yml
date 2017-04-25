@@ -45,7 +45,11 @@ stages:
 
       # Run the tests
       npm test
-- name: Deploy server and worker
+  - name: Slack
+    type: Build
+    script: |
+      #!/bin/bash
+      bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
   inputs:
   - type: job
     stage: Build server and worker
@@ -55,6 +59,9 @@ stages:
   - name: ICON_DOMAIN
     type: text
     value: ${ICON_DOMAIN}
+  - name: BLUE_GREEN
+    type: text_area
+    value: ${DEPLOY_SCRIPT}
   jobs:
   - name: Deploy server
     type: deployer
@@ -63,9 +70,12 @@ stages:
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME1}
-    script: |
+    script: |-
       #!/bin/bash
-      cf push "${CF_APP}" -d "${ICON_DOMAIN}" -n "${CF_APP}" -f bluemix/dev-main-manifest.yml
+      
+      echo "${BLUE_GREEN}" > blue_green.sh
+      chmod +x blue_green.sh
+      ./blue_green.sh -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/dev-main-manifest.yml
   - name: Deploy worker
     type: deployer
     target:
@@ -75,7 +85,12 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
-      cf push "${CF_APP}" -d "${ICON_DOMAIN}" -n "${CF_APP}" -f bluemix/dev-worker-manifest.yml
+      cf push ${CF_APP} -f bluemix/dev-worker-manifest.yml
+  - name: Slack
+    type: Build
+    script: |-
+      #!/bin/bash
+      bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} deploy-stage ${CF_APP} for build ${BUILD_NUMBER} is successfully deployed to org ${CF_ORG} space ${CF_SPACE}
 - name: Tagging
   inputs:
   - type: job

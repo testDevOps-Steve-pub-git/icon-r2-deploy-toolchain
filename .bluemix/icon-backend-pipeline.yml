@@ -54,9 +54,13 @@ stages:
       # Run the tests
       npm test
   - name: Slack
-    type: builder
+    type: deployer
+    target:
+      region_id: ${PROD_REGION_ID}
+      organization: ${PROD_ORG_NAME}
+      space: ${PROD_SPACE_NAME}
+      application: ${CF_APP_NAME1}
     artifact_dir: ''
-    build_type: shell
     script: |
       #!/bin/bash
       bash scripts/slack-webhook.sh https://hooks.slack.com/services/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 icon2-builds test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
@@ -101,8 +105,12 @@ stages:
       #!/bin/bash
       cf push ${CF_APP} -f bluemix/dev-worker-manifest.yml
   - name: Slack
-    type: builder
-    build_type: shell
+    type: deployer
+    target:
+      region_id: ${PROD_REGION_ID}
+      organization: ${PROD_ORG_NAME}
+      space: ${PROD_SPACE_NAME}
+      application: ${CF_APP_NAME1}
     artifact_dir: ''
     script: |-
       #!/bin/bash

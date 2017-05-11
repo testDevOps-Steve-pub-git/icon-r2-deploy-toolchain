@@ -55,10 +55,10 @@ stages:
       npm install
 
       # GET CLAMAV endpoint
-      CLAMAV_IP=$(cf ic inspect -f '{{.NetworkSettings.PublicIpAddress}}' $CLAMAV_NAME)
+      CLAMAV_IP=$(cf ic inspect -f '{{ '{{' }}.NetworkSettings.PublicIpAddress{{ '}}' }}' $CLAMAV_NAME)
 
       # GET DHIR NGINX ENDPOINT 
-      DHIR_NGINX_ENDPOINT=$(cf app dhir-nginx | grep routes | tr -d ' ' | cut -d ':' -f 2) 
+      DHIR_NGINX_ENDPOINT=$(cf app dhir-nginx | grep 'urls' | tr -d ' ' | cut -d ':' -f 2) 
 
       if [ -z $DHIR_NGINX_ENDPOINT ]
       then

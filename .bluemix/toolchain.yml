@@ -60,6 +60,7 @@ services:
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
+          ICON_SERVER_NAME: '{{form.pipeline.parameters.server-app-name}}'
       execute: false
   icon-r2-dhir-nginx-repo:
     service_id: githubpublic

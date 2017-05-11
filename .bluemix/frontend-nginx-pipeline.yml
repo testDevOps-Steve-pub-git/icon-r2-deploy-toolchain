@@ -55,6 +55,9 @@ stages:
   - name: BLUE_GREEN
     type: text_area
     value: ${DEPLOY_SCRIPT}
+  - name: ICON_SERVER_NAME
+    type: text
+    value: ${ICON_SERVER_NAME}
   triggers:
   - type: stage
   jobs:
@@ -72,6 +75,8 @@ stages:
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
       ./blue_green.sh  -d ${ICON_DOMAIN} -n nwhu -n gbhu -f bluemix/dev-manifest.yml
+      cf set-env ${CF_APP} ICON_SERVER https://${ICON_SERVER_NAME}.${ICON_DOMAIN}
+      cf restart ${CF_APP}
 hooks:
 - enabled: true
   label: null

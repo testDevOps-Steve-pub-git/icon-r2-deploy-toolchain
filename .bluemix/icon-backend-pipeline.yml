@@ -55,9 +55,8 @@ stages:
       \   echo \"Installing IBM Containers plugin (cf ic)\"\n     cf install-plugin\
       \ -f $EXT_DIR/ibm-containers-linux_x64 &> /dev/null\ncf ic init\n# Prepare testing\
       \ environment\nexport TESTING_ENV=testing\n\n# Install the dependencies\nexport\
-      \ PATH=/opt/IBM/node-v6.7.0/bin:$PATH\nnpm install\n\n# GET CLAMAV endpoint\n\
-      \  LEFT='{{{{}}' \n RIGHT='{{}}}}'\n                                                       \
-      CLAMAV_IP=$(cf ic inspect -f '${LEFT}NetworkSettings.PublicIpAddress${RIGHT}' $CLAMAV_NAME)\n\
+      \ PATH=/opt/IBM/node-v6.7.0/bin:$PATH\nnpm install\n\n# GET CLAMAV endpoint\n\                                                   \
+      CLAMAV_IP=$(cf ic inspect -f '{{.NetworkSettings.PublicIpAddress}}' $CLAMAV_NAME)\n\
       \n# GET DHIR NGINX ENDPOINT \nDHIR_NGINX_ENDPOINT=$(cf app $DHIR_NAME | grep\
       \ 'urls' | tr -d ' ' | cut -d ':' -f 2) \n\nif [ -z $DHIR_NGINX_ENDPOINT ]\n\
       then\n  DHIR_NGINX_ENDPOINT=$(cf app $DHIR_NAME | grep 'routes' | tr -d ' '\

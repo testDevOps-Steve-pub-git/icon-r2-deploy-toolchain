@@ -24,4 +24,4 @@ Press the button to create a Promote Toolchain for the ICON R2 application.  You
 
 Press the button to create a Developer Toolchain using kulkarniankita's toolchain-test repository.
 
-[![Deploy To Bluemix](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ng.bluemix.net/devops/setup/deploy/?repository=https%3A//github.com/kulkarniankita/toolchain-test)
+[![Deploy To Bluemix](https://console.ng.bluemix.net/devops/graphics/create_toolchain_button.png)](https://console.ehealthontario.ca-east.bluemix.net/devops/setup/deploy/?repository=https%3A//github.com/kulkarniankita/toolchain-test)

@@ -34,7 +34,6 @@ services:
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
-          SLACK_WEBHOOK_PATH: '{{form.pipeline.parameters.slack-webhook-url}}'
       execute: false
   icon-r2-frontend-nginx-repo:
     service_id: githubpublic
@@ -61,7 +60,6 @@ services:
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
-          SLACK_WEBHOOK_PATH: '{{form.pipeline.parameters.slack-webhook-url}}'
       execute: false
   icon-r2-dhir-nginx-repo:
     service_id: githubpublic
@@ -88,7 +86,6 @@ services:
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
-          SLACK_WEBHOOK_PATH: '{{form.pipeline.parameters.slack-webhook-url}}'
       execute: false
   icon-r2-kibana-repo:
     service_id: githubpublic
@@ -115,7 +112,6 @@ services:
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
-          SLACK_WEBHOOK_PATH: '{{form.pipeline.parameters.slack-webhook-url}}'
       execute: false
   icon-r2-server-repo:
     service_id: githubpublic
@@ -143,9 +139,8 @@ services:
           PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
-          SLACK_WEBHOOK_PATH: '{{form.pipeline.parameters.slack-webhook-url}}'
-          SLACK_WEBHOOK_URL: '{{form.pipeline.parameters.slack-webhook-url}}'
-          SLACK_CHANNEL: '{{form.pipeline.parameters.slack-channel}}'
+          CLAMAV_NAME: '{{form.pipeline.parameters.clamav-app-name}}'
+          DHIR_NAME: '{{form.pipeline.parameters.dhir-nginx-app-name}}'
     execute: false
 form:
   pipeline:
@@ -187,8 +182,6 @@ form:
       dhir-nginx-app-name: 'icon-r2-dhir-nginx'
       kibana-app-name: 'icon-r2-kibana'
       clamav-app-name: 'icon-r2-clamav'
-      icon-domain: 'mybluemix.net'
-      slack-webhook-url: 'https://hooks.slack.com/services/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'
-      slack-channel: 'icon2-builds'
+      icon-domain: 'ehealthontario.ca-east.mybluemix.net'
     schema:
       $ref: deploy.json

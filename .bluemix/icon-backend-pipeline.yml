@@ -6,10 +6,6 @@ stages:
     type: git
     branch: ibm-devops
     dir_name: null
-  properties:
-  - name: SLACK_WEBHOOK_PATH
-    value: ${SLACK_WEBHOOK_PATH}
-    type: text
   jobs:
   - name: Build
     type: builder
@@ -27,24 +23,22 @@ stages:
     job: Build
     dir_name: null
   properties:
-  - name: SLACK_WEBHOOK_PATH
-    value: ${SLACK_WEBHOOK_PATH}
+  - name: DHIR_NAME
+    value: ${DHIR_NAME}
     type: text
-  - name: SLACK_WEBHOOK_URL
-    value: ${SLACK_WEBHOOK_URL}
-    type: text
-  - name: SLACK_CHANNEL
-    value: ${SLACK_CHANNEL}
+  - name: CLAMAV_NAME
+    value: ${CLAMAV_NAME}
     type: text
   jobs:
   - name: Tests
     type: deployer
+    extension_id: ibm.devops.services.pipeline.docker.deploy.ice
     target:
       region_id: ${PROD_REGION_ID}
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME1}
-    script: |
+    COMMAND: |
       #!/bin/bash
 
       # Prepare testing environment
@@ -54,22 +48,20 @@ stages:
       export PATH=/opt/IBM/node-v6.7.0/bin:$PATH
       npm install
 
+      # GET CLAMAV endpoint
+      CLAMAV_IP=$(cf ic inspect -f '{{.NetworkSettings.PublicIpAddress}}' $CLAMAV_NAME)
+
+      # GET DHIR NGINX ENDPOINT 
+      DHIR_NGINX_ENDPOINT=$(cf app dhir-nginx | grep routes | tr -d ' ' | cut -d ':' -f 2) 
+
       # Get VCAP env setup
-      node scripts/env.js
+      node scripts/env.js CLAMAV_ENDPOINT=$CLAMAV_IP  PHIX_ENDPOINT_DICTIONARY=$DHIR_NGINX_ENDPOINT  PHIX_ENDPOINT_RETRIEVAL=$DHIR_NGINX_ENDPOINT   PHIX_ENDPOINT_SUBMISSION=$DHIR_NGINX_ENDPOINT
 
       # Run the tests
       npm test
-  - name: Slack
-    type: deployer
-    target:
-      region_id: ${PROD_REGION_ID}
-      organization: ${PROD_ORG_NAME}
-      space: ${PROD_SPACE_NAME}
-      application: ${CF_APP_NAME1}
-    artifact_dir: ''
-    script: |
-      #!/bin/bash
-      bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} test-stage ${CF_APP} tests for build ${BUILD_NUMBER} deployed to org ${CF_ORG} space ${CF_SPACE} - Passed
+    PORT: '80'
+    CONTAINER_NAME: ${CF_APP_NAME}
+    DEPLOY_TYPE: red_black
 - name: Deploy server
   inputs:
   - type: job
@@ -83,15 +75,6 @@ stages:
   - name: BLUE_GREEN
     type: text_area
     value: ${DEPLOY_SCRIPT}
-  - name: SLACK_WEBHOOK_PATH
-    value: ${SLACK_WEBHOOK_PATH}
-    type: text
-  - name: SLACK_WEBHOOK_URL
-    value: ${SLACK_WEBHOOK_URL}
-    type: text
-  - name: SLACK_CHANNEL
-    value: ${SLACK_CHANNEL}
-    type: text
   jobs:
   - name: Deploy server
     type: deployer
@@ -116,17 +99,6 @@ stages:
     script: |-
       #!/bin/bash
       cf push ${CF_APP} -f bluemix/dev-worker-manifest.yml
-  - name: Slack
-    type: deployer
-    target:
-      region_id: ${PROD_REGION_ID}
-      organization: ${PROD_ORG_NAME}
-      space: ${PROD_SPACE_NAME}
-      application: ${CF_APP_NAME1}
-    artifact_dir: ''
-    script: |-
-      #!/bin/bash
-      bash scripts/slack-webhook.sh ${SLACK_WEBHOOK_URL} ${SLACK_CHANNEL} deploy-stage ${CF_APP} for build ${BUILD_NUMBER} is successfully deployed to org ${CF_ORG} space ${CF_SPACE}
 - name: Tagging
   inputs:
   - type: job

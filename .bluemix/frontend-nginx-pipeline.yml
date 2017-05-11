@@ -74,7 +74,7 @@ stages:
       
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_green.sh  -d ${ICON_DOMAIN} -n nwhu -n gbhu -f bluemix/dev-manifest.yml
+      ./blue_green.sh  -d ${ICON_DOMAIN} -n hph -f bluemix/dev-manifest.yml
       cf set-env ${CF_APP} ICON_SERVER https://${ICON_SERVER_NAME}.${ICON_DOMAIN}
       cf restart ${CF_APP}
 hooks:

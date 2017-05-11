@@ -6,6 +6,10 @@ stages:
     type: git
     branch: ibm-devops
     dir_name: null
+  properties:
+  - name: BLUE_GREEN
+    type: text_area
+    value: ${DEPLOY_SCRIPT}
   jobs:
   - name: Build
     type: builder
@@ -16,6 +20,8 @@ stages:
       # your script here
       echo "commit=${GIT_COMMIT}" >> ./commit.properties
       echo "git_url=${GIT_URL}" >> ./commit.properties
+      echo "${BLUE_GREEN}" > blue_green.sh
+      chmod a+x blue_green.sh
 - name: Test server
   inputs:
   - type: job
@@ -54,6 +60,11 @@ stages:
       # GET DHIR NGINX ENDPOINT 
       DHIR_NGINX_ENDPOINT=$(cf app dhir-nginx | grep routes | tr -d ' ' | cut -d ':' -f 2) 
 
+      if [ -z $DHIR_NGINX_ENDPOINT ]
+      then
+        DHIR_NGINX_ENDPOINT=$(cf app dhir-nginx | grep 'routes' | tr -d ' ' | cut -d ':' -f 2) 
+      fi
+
       # Get VCAP env setup
       node scripts/env.js CLAMAV_ENDPOINT=$CLAMAV_IP  PHIX_ENDPOINT_DICTIONARY=$DHIR_NGINX_ENDPOINT  PHIX_ENDPOINT_RETRIEVAL=$DHIR_NGINX_ENDPOINT   PHIX_ENDPOINT_SUBMISSION=$DHIR_NGINX_ENDPOINT
 
@@ -72,9 +83,6 @@ stages:
   - name: ICON_DOMAIN
     type: text
     value: ${ICON_DOMAIN}
-  - name: BLUE_GREEN
-    type: text_area
-    value: ${DEPLOY_SCRIPT}
   jobs:
   - name: Deploy server
     type: deployer
@@ -85,9 +93,6 @@ stages:
       application: ${CF_APP_NAME1}
     script: |-
       #!/bin/bash
-      
-      echo "${BLUE_GREEN}" > blue_green.sh
-      chmod +x blue_green.sh
       ./blue_green.sh -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/dev-main-manifest.yml
   - name: Deploy worker
     type: deployer
@@ -98,7 +103,7 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
-      cf push ${CF_APP} -f bluemix/dev-worker-manifest.yml
+      ./blue_green.sh -f bluemix/dev-worker-manifest.yml
 - name: Tagging
   inputs:
   - type: job

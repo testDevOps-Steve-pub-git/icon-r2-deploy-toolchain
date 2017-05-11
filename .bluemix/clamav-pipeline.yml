@@ -53,14 +53,19 @@ stages:
       \ ca-certificates &> $EXT_DIR/dockerinst.out\n    sudo apt-key adv --keyserver\
       \ hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D\
       \ &>> $EXT_DIR/dockerinst.out\n    sudo add-apt-repository \"deb https://apt.dockerproject.org/repo\
-      \ ubuntu-precise main\" &>> $EXT_DIR/dockerinst.out\necho \"here\"\n    sudo\
-      \ apt-get update &>> $EXT_DIR/dockerinst.out\n    sudo apt-get -y install docker-engine\
-      \ &>> $EXT_DIR/dockerinst.out\nif [ -f $EXT_DIR/utilities/cfic826.tgz ]; then\n\
+      \ ubuntu-precise main\" &>> $EXT_DIR/dockerinst.out\n    sudo apt-get update\
+      \ &>> $EXT_DIR/dockerinst.out\n    sudo apt-get -y install docker-engine &>>\
+      \ $EXT_DIR/dockerinst.out\nif [ -f $EXT_DIR/utilities/cfic826.tgz ]; then\n\
       \        tar zxf $EXT_DIR/utilities/cfic826.tgz\n    else\n        wget https://static-ice.ng.bluemix.net/ibm-containers-linux_x64\
       \ &> /dev/null\n    fi\n    chmod 755 $EXT_DIR/ibm-containers-linux_x64\n  \
       \   echo \"Installing IBM Containers plugin (cf ic)\"\n     cf install-plugin\
-      \ -f $EXT_DIR/ibm-containers-linux_x64 &> /dev/null\ncf ic init\n\nsource build.properties\
-      \ \ncf ic run -p 3310 --name ${CF_APP} $IMAGE_NAME "
+      \ -f $EXT_DIR/ibm-containers-linux_x64 &> /dev/null\ncf ic init\n\n\nCLAMAV_IP=$(cf\
+      \ ic ip list | grep -E '[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}[[:space:]]*$'\
+      \ | head -n 1)\n\nif [ -z $CLAMAV_IP ]\nthen\n echo \"fail to obtain resuing\
+      \ one, requesting new one\"\n CLAMAV_IP=$(cf ic ip request)\n if [ -z $CLAMAV_IP\
+      \ ]\n then\n    echo \" requesting new one failed\"\n    exit 1\n fi\n\nfi\n\
+      \n\nsource build.properties \ncf ic run -p 3310 --name ${CF_APP} $IMAGE_NAME\
+      \ \ncf ic ip bind  $CLAMAV_IP ${CF_APP}"
 hooks:
 - enabled: true
   label: null

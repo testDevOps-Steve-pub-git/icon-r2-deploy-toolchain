@@ -38,41 +38,32 @@ stages:
   jobs:
   - name: Tests
     type: deployer
-    extension_id: ibm.devops.services.pipeline.docker.deploy.ice
     target:
       region_id: ${PROD_REGION_ID}
       organization: ${PROD_ORG_NAME}
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME1}
-    COMMAND: |
-      #!/bin/bash
-
-      # Prepare testing environment
-      export TESTING_ENV=testing
-
-      # Install the dependencies
-      export PATH=/opt/IBM/node-v6.7.0/bin:$PATH
-      npm install
-
-      # GET CLAMAV endpoint
-      CLAMAV_IP=$(cf ic inspect -f '{{}}{.NetworkSettings.PublicIpAddress}' $CLAMAV_NAME)
-
-      # GET DHIR NGINX ENDPOINT 
-      DHIR_NGINX_ENDPOINT=$(cf app dhir-nginx | grep 'urls' | tr -d ' ' | cut -d ':' -f 2) 
-
-      if [ -z $DHIR_NGINX_ENDPOINT ]
-      then
-        DHIR_NGINX_ENDPOINT=$(cf app dhir-nginx | grep 'routes' | tr -d ' ' | cut -d ':' -f 2) 
-      fi
-
-      # Get VCAP env setup
-      node scripts/env.js CLAMAV_ENDPOINT=$CLAMAV_IP  PHIX_ENDPOINT_DICTIONARY=$DHIR_NGINX_ENDPOINT  PHIX_ENDPOINT_RETRIEVAL=$DHIR_NGINX_ENDPOINT   PHIX_ENDPOINT_SUBMISSION=$DHIR_NGINX_ENDPOINT
-
-      # Run the tests
-      npm test
-    PORT: '80'
-    CONTAINER_NAME: ${CF_APP_NAME}
-    DEPLOY_TYPE: red_black
+    script: "#!/bin/bash\nexport EXT_DIR=$(pwd)\nsudo apt-get -y install apt-transport-https\
+      \ ca-certificates &> $EXT_DIR/dockerinst.out\n    sudo apt-key adv --keyserver\
+      \ hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D\
+      \ &>> $EXT_DIR/dockerinst.out\n    sudo add-apt-repository \"deb https://apt.dockerproject.org/repo\
+      \ ubuntu-precise main\" &>> $EXT_DIR/dockerinst.out\n    sudo apt-get update\
+      \ &>> $EXT_DIR/dockerinst.out\n    sudo apt-get -y install docker-engine &>>\
+      \ $EXT_DIR/dockerinst.out\nif [ -f $EXT_DIR/utilities/cfic826.tgz ]; then\n\
+      \        tar zxf $EXT_DIR/utilities/cfic826.tgz\n    else\n        wget https://static-ice.ng.bluemix.net/ibm-containers-linux_x64\
+      \ &> /dev/null\n    fi\n    chmod 755 $EXT_DIR/ibm-containers-linux_x64\n  \
+      \   echo \"Installing IBM Containers plugin (cf ic)\"\n     cf install-plugin\
+      \ -f $EXT_DIR/ibm-containers-linux_x64 &> /dev/null\ncf ic init\n# Prepare testing\
+      \ environment\nexport TESTING_ENV=testing\n\n# Install the dependencies\nexport\
+      \ PATH=/opt/IBM/node-v6.7.0/bin:$PATH\nnpm install\n\n# GET CLAMAV endpoint\n\
+      CLAMAV_IP=$(cf ic inspect -f '{{.NetworkSettings.PublicIpAddress}}' $CLAMAV_NAME)\n\
+      \n# GET DHIR NGINX ENDPOINT \nDHIR_NGINX_ENDPOINT=$(cf app $DHIR_NAME | grep\
+      \ 'urls' | tr -d ' ' | cut -d ':' -f 2) \n\nif [ -z $DHIR_NGINX_ENDPOINT ]\n\
+      then\n  DHIR_NGINX_ENDPOINT=$(cf app $DHIR_NAME | grep 'routes' | tr -d ' '\
+      \ | cut -d ':' -f 2) \nfi\n\n# Get VCAP env setup\nnode scripts/env.js CLAMAV_ENDPOINT=$CLAMAV_IP\
+      \  PHIX_ENDPOINT_DICTIONARY=$DHIR_NGINX_ENDPOINT  PHIX_ENDPOINT_RETRIEVAL=$DHIR_NGINX_ENDPOINT\
+      \   PHIX_ENDPOINT_SUBMISSION=$DHIR_NGINX_ENDPOINT\n\n# update user provided\
+      \ service\ncf uups env_setup -p local.json \n\n# Run the tests\nnpm test\n"
 - name: Deploy server
   inputs:
   - type: job

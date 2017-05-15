@@ -38,6 +38,7 @@ stages:
   jobs:
   - name: Tests
     type: deployer
+    fail_stage: false
     target:
       region_id: ${PROD_REGION_ID}
       organization: ${PROD_ORG_NAME}

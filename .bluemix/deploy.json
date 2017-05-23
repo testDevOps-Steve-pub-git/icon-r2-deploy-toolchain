@@ -27,8 +27,8 @@
             "type": "string"
         },
         "icon-domain": {
-          "description": "Domain to use for deployed apps",
-          "type": "string"
+            "description": "Domain to use for deployed apps",
+            "type": "string"
         },
         "frontend-nginx-app-name": {
             "description": {
@@ -71,6 +71,42 @@
             },
             "type": "string",
             "pattern": "\\S"
+        },
+        "crypto-password": {
+            "description": "description",
+            "type": "string"
+        },
+        "jwt-secret": {
+            "description": "description",
+            "type": "string"
+        },
+        "endpoint_dictionary": {
+            "description": "description",
+            "type": "string"
+        },
+        "endpoint_retrieval": {
+            "description": "description",
+            "type": "string"
+        },
+        "endpoint_retrieval_token": {
+            "description": "description",
+            "type": "string"
+        },
+        "endpoint_submission": {
+            "description": "description",
+            "type": "string"
+        },
+        "endpoint_submission_token": {
+            "description": "description",
+            "type": "string"
+        },
+        "postgres_readonly_role": {
+            "description": "description",
+            "type": "string"
+        },
+        "tz": {
+            "description": "Timezone",
+            "type": "string"
         }
     },
     "required": [
@@ -83,7 +119,16 @@
         "server-app-name",
         "server-worker-app-name",
         "clamav-app-name",
-        "icon-domain"
+        "icon-domain",
+        "tz",
+        "postgres_readonly_role",
+        "endpoint_submission_token",
+        "endpoint_submission",
+        "endpoint_retrieval_token",
+        "endpoint_retrieval",
+        "endpoint_dictionary",
+        "jwt-secret",
+        "crypto-password"
     ],
     "form": [
         {
@@ -145,6 +190,50 @@
                 "$ref": "#/messages/icon-domain"
             },
             "key": "icon-domain"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": "Crypto Password",
+            "key": "crypto-password"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": "JWT Secret",
+            "key": "jwt-secret"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": "Postgres read only role",
+            "key": "postgres_readonly_role"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": "Timezone",
+            "key": "tz"
+        },
+        {
+            "type": "text",
+            "key": "endpoint_retrieval"
+        },
+        {
+            "type": "text",
+            "key": "endpoint_retrieval_token"
+        },
+        {
+            "type": "text",
+            "key": "endpoint_submission"
+        },
+        {
+            "type": "text",
+            "key": "endpoint_submission_token"
+        },
+        {
+            "type": "text",
+            "key": "endpoint_dictionary"
         },
         {
             "type": "table",

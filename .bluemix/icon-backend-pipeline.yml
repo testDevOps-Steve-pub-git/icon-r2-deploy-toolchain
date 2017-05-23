@@ -18,54 +18,8 @@ stages:
     script: |
       #!/bin/bash
       # your script here
-      echo "commit=${GIT_COMMIT}" >> ./commit.properties
-      echo "git_url=${GIT_URL}" >> ./commit.properties
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod a+x blue_green.sh
-- name: Test server
-  inputs:
-  - type: job
-    stage: Build server and worker
-    job: Build
-    dir_name: null
-  properties:
-  - name: DHIR_NAME
-    value: ${DHIR_NAME}
-    type: text
-  - name: CLAMAV_NAME
-    value: ${CLAMAV_NAME}
-    type: text
-  jobs:
-  - name: Tests
-    type: deployer
-    target:
-      region_id: ${PROD_REGION_ID}
-      organization: ${PROD_ORG_NAME}
-      space: ${PROD_SPACE_NAME}
-      application: ${CF_APP_NAME1}
-    script: "#!/bin/bash\nexport EXT_DIR=$(pwd)\nsudo apt-get -y install apt-transport-https\
-      \ ca-certificates &> $EXT_DIR/dockerinst.out\n    sudo apt-key adv --keyserver\
-      \ hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D\
-      \ &>> $EXT_DIR/dockerinst.out\n    sudo add-apt-repository \"deb https://apt.dockerproject.org/repo\
-      \ ubuntu-precise main\" &>> $EXT_DIR/dockerinst.out\n    sudo apt-get update\
-      \ &>> $EXT_DIR/dockerinst.out\n    sudo apt-get -y install docker-engine &>>\
-      \ $EXT_DIR/dockerinst.out\nif [ -f $EXT_DIR/utilities/cfic826.tgz ]; then\n\
-      \        tar zxf $EXT_DIR/utilities/cfic826.tgz\n    else\n        wget https://static-ice.ng.bluemix.net/ibm-containers-linux_x64\
-      \ &> /dev/null\n    fi\n    chmod 755 $EXT_DIR/ibm-containers-linux_x64\n  \
-      \   echo \"Installing IBM Containers plugin (cf ic)\"\n     cf install-plugin\
-      \ -f $EXT_DIR/ibm-containers-linux_x64 &> /dev/null\ncf ic init\n# Prepare testing\
-      \ environment\nexport TESTING_ENV=testing\n\n# Install the dependencies\nexport\
-      \ PATH=/opt/IBM/node-v6.7.0/bin:$PATH\nnpm install\n\n# GET CLAMAV endpoint\n\                                                   \
-      RIGHT=}}\n\
-      LEFT={{\n\
-      CLAMAV_IP=$(cf ic inspect -f $LEFT'.NetworkSettings.PublicIpAddress'$RIGHT $CLAMAV_NAME)\n\
-      \n# GET DHIR NGINX ENDPOINT \nDHIR_NGINX_ENDPOINT=$(cf app $DHIR_NAME | grep\
-      \ 'urls' | tr -d ' ' | cut -d ':' -f 2) \n\nif [ -z $DHIR_NGINX_ENDPOINT ]\n\
-      then\n  DHIR_NGINX_ENDPOINT=$(cf app $DHIR_NAME | grep 'routes' | tr -d ' '\
-      \ | cut -d ':' -f 2) \nfi\n\n# Get VCAP env setup\nnode scripts/env.js CLAMAV_ENDPOINT=$CLAMAV_IP\
-      \  PHIX_ENDPOINT_DICTIONARY=$DHIR_NGINX_ENDPOINT  PHIX_ENDPOINT_RETRIEVAL=$DHIR_NGINX_ENDPOINT\
-      \   PHIX_ENDPOINT_SUBMISSION=$DHIR_NGINX_ENDPOINT\n\n# update user provided\
-      \ service\ncf uups env_setup -p local.json \n\n# Run the tests\nnpm test\n"
 - name: Deploy server
   inputs:
   - type: job
@@ -86,7 +40,7 @@ stages:
       application: ${CF_APP_NAME1}
     script: |-
       #!/bin/bash
-      ./blue_green.sh -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/dev-main-manifest.yml
+      ./blue_green.sh -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/base-manifest.yml
   - name: Deploy worker
     type: deployer
     target:
@@ -96,33 +50,96 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
-      ./blue_green.sh -f bluemix/dev-worker-manifest.yml
-- name: Tagging
+      ./blue_green.sh -f bluemix/base-manifest.yml
+- name: Configure server
   inputs:
   - type: job
     stage: Build server and worker
     job: Build
     dir_name: null
-  triggers:
-  - type: stage
-    enabled: false
   properties:
-  - name: GIT_USER
+  - name: CRYPTO_PASSWORD
     type: secure
-  - name: GIT_PASS
+    value: ${CRYPTO_PASSWORD}
+  - name: JWT_TOKEN_SECRET_KEY
     type: secure
+    value: ${JWT_TOKEN_SECRET_KEY}
+  - name: PHIX_ENDPOINT_DICTIONARY
+    type: text
+    value: ${PHIX_ENDPOINT_DICTIONARY}
+  - name: PHIX_ENDPOINT_RETRIEVAL
+    type: text
+    value: ${PHIX_ENDPOINT_RETRIEVAL}
+  - name: PHIX_ENDPOINT_RETRIEVAL_TOKEN
+    type: secure
+    value: ${PHIX_ENDPOINT_RETRIEVAL_TOKEN}
+  - name: PHIX_ENDPOINT_SUBMISSION
+    type: text
+    value: ${PHIX_ENDPOINT_SUBMISSION}
+  - name: PHIX_ENDPOINT_SUBMISSION_TOKEN
+    type: secure
+    value: ${PHIX_ENDPOINT_SUBMISSION_TOKEN}
+  - name: POSTGRES_READONLY_ROLE
+    type: text
+    value: ${POSTGRES_READONLY_ROLE}
+  - name: TZ
+    type: text
+    value: ${TZ}
+  - name: DHIR_NAME
+    value: ${DHIR_NAME}
+    type: text
+  - name: CLAMAV_NAME
+    value: ${CLAMAV_NAME}
+    type: text
+  - name: SERVER_NAME
+    value: ${CF_APP_NAME1}
+    type: text
+  - name: WORKER_NAME
+    value: ${CF_APP_NAME2}
+    type: text
+  - name: ICON_DOMAIN
+    type: text
+    value: ${ICON_DOMAIN}
   jobs:
-  - name: Build
-    type: builder
-    artifact_dir: ''
-    build_type: shell
-    script: "#!/bin/bash\n# your script here\nls\necho  \"get commit number\" \nCOMMIT_NUMBER=`bash\
-      \ scripts/read_properties.sh commit.properties commit`\nGITURL=`bash scripts/read_properties.sh\
-      \ commit.properties git_url`\n\nURL=`awk -F// '{ print $2}' <<<\"${GITURL}\"\
-      `\n\necho \"clone repo\"\ngit clone https://$GIT_USER:$GIT_PASS@$URL\ncd icon-r2-backend\n\
-      \necho \"check out $COMMIT_NUMBER\"\ngit checkout ${COMMIT_NUMBER}\n\n\nTAG=\"\
-      build-${BUILD_NUMBER}-$(date +%Y-%m-%d)\"\necho \"Creating tag: $TAG\"\ngit\
-      \ tag $TAG\n\n#git push --tags\n\n"
+  - name: Tests
+    type: deployer
+    target:
+      region_id: ${PROD_REGION_ID}
+      organization: ${PROD_ORG_NAME}
+      space: ${PROD_SPACE_NAME}
+      application: ${CF_APP_NAME1}
+    script: "#!/bin/bash\nexport EXT_DIR=$(pwd)\nsudo apt-get -y install apt-transport-https\
+      \ ca-certificates &> $EXT_DIR/dockerinst.out\n    sudo apt-key adv --keyserver\
+      \ hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D\
+      \ &>> $EXT_DIR/dockerinst.out\n    sudo add-apt-repository \"deb https://apt.dockerproject.org/repo\
+      \ ubuntu-precise main\" &>> $EXT_DIR/dockerinst.out\n    sudo apt-get update\
+      \ &>> $EXT_DIR/dockerinst.out\n    sudo apt-get -y install docker-engine &>>\
+      \ $EXT_DIR/dockerinst.out\nif [ -f $EXT_DIR/utilities/cfic826.tgz ]; then\n\
+      \        tar zxf $EXT_DIR/utilities/cfic826.tgz\n    else\n        wget https://static-ice.ng.bluemix.net/ibm-containers-linux_x64\
+      \ &> /dev/null\n    fi\n    chmod 755 $EXT_DIR/ibm-containers-linux_x64\n  \
+      \   echo \"Installing IBM Containers plugin (cf ic)\"\n     cf install-plugin\
+      \ -f $EXT_DIR/ibm-containers-linux_x64 &> /dev/null\ncf ic init\n# Prepare testing\
+      \# GET CLAMAV endpoint\nRIGHT=}}\nLEFT={{\n\
+      \CLAMAV_IP=$(cf ic inspect -f $LEFT'.NetworkSettings.PublicIpAddress'$RIGHT $CLAMAV_NAME)\n\
+      \# GET DHIR NGINX ENDPOINT \nDHIR_NGINX_ENDPOINT=https://${DHIR_NAME}.${ICON_DOMAIN}\n\
+      \# Setting env for server\n\
+      \cf set-env $SERVER_NAME CLAMAV_ENDPOINT $CLAMAV_IP\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_DICTIONARY=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_DICTIONARY}\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_RETRIEVAL=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_RETRIEVAL}\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_SUBMISSION=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_SUBMISSION}\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_RETRIEVAL_TOKEN=${PHIX_ENDPOINT_RETRIEVAL_TOKEN}\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_SUBMISSION_TOKEN=${PHIX_ENDPOINT_SUBMISSION_TOKEN}\n\
+      \cf set-env $SERVER_NAME POSTGRES_READONLY_ROLE=${POSTGRES_READONLY_ROLE}\n\
+      \cf restart $SERVER_NAME\n\
+      \# Setting env for server worker\n\
+      \cf set-env $WORKER_NAME CLAMAV_ENDPOINT $CLAMAV_IP\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_DICTIONARY=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_DICTIONARY}\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_RETRIEVAL=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_RETRIEVAL}\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_SUBMISSION=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_SUBMISSION}\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_RETRIEVAL_TOKEN=${PHIX_ENDPOINT_RETRIEVAL_TOKEN}\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_SUBMISSION_TOKEN=${PHIX_ENDPOINT_SUBMISSION_TOKEN}\n\
+      \cf set-env $WORKER_NAME POSTGRES_READONLY_ROLE=${POSTGRES_READONLY_ROLE}\n\
+      \cf restart $WORKER_NAME\n"
 hooks:
 - enabled: true
   label: null

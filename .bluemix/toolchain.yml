@@ -4,7 +4,7 @@ template:
   description: This Toolchain is for Developing ICON r2.  Each deployment is tagged.
   info:
     git url: '[https://github.com/Shifeng-ON/icon-r2-deploy-toolchain](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain)'
-    git branch: '[master](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/master)'
+    git branch: '[test](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/test)'
 toolchain:
   name: icon2-dev-toolchain-{{timestamp}}
 services:
@@ -142,6 +142,15 @@ services:
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
           CLAMAV_NAME: '{{form.pipeline.parameters.clamav-app-name}}'
           DHIR_NAME: '{{form.pipeline.parameters.dhir-nginx-app-name}}'
+          CRYPTO_PASSWORD: '{{form.pipeline.parameters.crypto-password}}'
+          JWT_TOKEN_SECRET_KEY: '{{form.pipeline.parameters.jwt-secret}}'
+          PHIX_ENDPOINT_DICTIONARY: '{{form.pipeline.parameters.endpoint_dictionary}}'
+          PHIX_ENDPOINT_RETRIEVAL: '{{form.pipeline.parameters.endpoint_retrieval}}'
+          PHIX_ENDPOINT_RETRIEVAL_TOKEN: '{{form.pipeline.parameters.endpoint_retrieval_token}}'
+          PHIX_ENDPOINT_SUBMISSION: '{{form.pipeline.parameters.endpoint_submission}}'
+          PHIX_ENDPOINT_SUBMISSION_TOKEN: '{{form.pipeline.parameters.endpoint_submission_token}}'
+          POSTGRES_READONLY_ROLE: '{{form.pipeline.parameters.postgres_readonly_role}}'
+          TZ: '{{form.pipeline.parameters.tz}}'
     execute: false
 form:
   pipeline:
@@ -184,5 +193,14 @@ form:
       kibana-app-name: 'icon-r2-kibana'
       clamav-app-name: 'icon-r2-clamav'
       icon-domain: 'ehealthontario.ca-east.mybluemix.net'
+      crypto-password: '<password>'
+      jwt-secret: '1234123412341234123412412341234123412341234123412341234124123412'
+      endpoint_dictionary: 'https://dhir-nginx-devops.mybluemix.net/API/FHIR/Immunizations/v2/Dictionary?domain='
+      endpoint_retrieval: 'https://dhir-nginx-devops.mybluemix.net/API/FHIR/Immunizations/v2/Immunization'
+      endpoint_retrieval_token: '<token>'
+      endpoint_submission: 'https://dhir-nginx-devops.mybluemix.net/API/FHIR/Immunizations/v2/Communication'
+      endpoint_submission_token: '<token>'
+      postgres_readonly_role: 'readonly:WERJFIRWJWNEDJASDF'
+      tz: 'America/Toronto'
     schema:
       $ref: deploy.json

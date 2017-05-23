@@ -51,6 +51,72 @@ stages:
     script: |-
       #!/bin/bash
       ./blue_green.sh -f bluemix/base-worker-manifest.yml    --no-start  
+- name: Configure server
+  inputs:
+  - type: job
+    stage: Build server and worker
+    job: Build
+    dir_name: null
+  properties:
+  - name: DHIR_NAME
+    value: ${DHIR_NAME}
+    type: text
+  - name: CLAMAV_NAME
+    value: ${CLAMAV_NAME}
+    type: text
+  - name: SERVER_NAME
+    value: ${CF_APP_NAME1}
+    type: text
+  - name: WORKER_NAME
+    value: ${CF_APP_NAME2}
+    type: text
+  - name: ICON_DOMAIN
+    type: text
+    value: ${ICON_DOMAIN}
+  jobs:
+  - name: Tests
+    type: deployer
+    target:
+      region_id: ${PROD_REGION_ID}
+      organization: ${PROD_ORG_NAME}
+      space: ${PROD_SPACE_NAME}
+      application: ${CF_APP_NAME1}
+    script: "#!/bin/bash\nexport EXT_DIR=$(pwd)\nsudo apt-get -y install apt-transport-https\
+      \ ca-certificates &> $EXT_DIR/dockerinst.out\n    sudo apt-key adv --keyserver\
+      \ hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D\
+      \ &>> $EXT_DIR/dockerinst.out\n    sudo add-apt-repository \"deb https://apt.dockerproject.org/repo\
+      \ ubuntu-precise main\" &>> $EXT_DIR/dockerinst.out\n    sudo apt-get update\
+      \ &>> $EXT_DIR/dockerinst.out\n    sudo apt-get -y install docker-engine &>>\
+      \ $EXT_DIR/dockerinst.out\nif [ -f $EXT_DIR/utilities/cfic826.tgz ]; then\n\
+      \        tar zxf $EXT_DIR/utilities/cfic826.tgz\n    else\n        wget https://static-ice.ng.bluemix.net/ibm-containers-linux_x64\
+      \ &> /dev/null\n    fi\n    chmod 755 $EXT_DIR/ibm-containers-linux_x64\n  \
+      \   echo \"Installing IBM Containers plugin (cf ic)\"\n     cf install-plugin\
+      \ -f $EXT_DIR/ibm-containers-linux_x64 &> /dev/null\ncf ic init\n# Prepare testing\
+      \# GET CLAMAV endpoint\nRIGHT=}}\nLEFT={{\n\
+      \CLAMAV_IP=$(cf ic inspect -f $LEFT'.NetworkSettings.PublicIpAddress'$RIGHT $CLAMAV_NAME)\n\
+      \# GET DHIR NGINX ENDPOINT \nDHIR_NGINX_ENDPOINT=https://${DHIR_NAME}.${ICON_DOMAIN}\n\
+      \# Setting env for server\n\
+      \cf set-env $SERVER_NAME CLAMAV_ENDPOINT $CLAMAV_IP\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_DICTIONARY=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_DICTIONARY}\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_RETRIEVAL=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_RETRIEVAL}\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_SUBMISSION=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_SUBMISSION}\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_RETRIEVAL_TOKEN=${PHIX_ENDPOINT_RETRIEVAL_TOKEN}\n\
+      \cf set-env $SERVER_NAME PHIX_ENDPOINT_SUBMISSION_TOKEN=${PHIX_ENDPOINT_SUBMISSION_TOKEN}\n\
+      \cf set-env $SERVER_NAME POSTGRES_READONLY_ROLE=${POSTGRES_READONLY_ROLE}\n\
+      \cf set-env $SERVER_NAME TZ=${TZ}\n\
+      \cf set-env $SERVER_NAME SERVER_TYPE=1\n\
+      \cf start $SERVER_NAME\n\
+      \# Setting env for server worker\n\
+      \cf set-env $WORKER_NAME CLAMAV_ENDPOINT $CLAMAV_IP\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_DICTIONARY=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_DICTIONARY}\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_RETRIEVAL=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_RETRIEVAL}\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_SUBMISSION=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_SUBMISSION}\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_RETRIEVAL_TOKEN=${PHIX_ENDPOINT_RETRIEVAL_TOKEN}\n\
+      \cf set-env $WORKER_NAME PHIX_ENDPOINT_SUBMISSION_TOKEN=${PHIX_ENDPOINT_SUBMISSION_TOKEN}\n\
+      \cf set-env $WORKER_NAME POSTGRES_READONLY_ROLE=${POSTGRES_READONLY_ROLE}\n\
+      \cf set-env $WORKER_NAME TZ=${TZ}\n\
+      \cf set-env $WORKER_NAME SERVER_TYPE=2\n\
+      \cf start $WORKER_NAME\n"
 hooks:
 - enabled: true
   label: null

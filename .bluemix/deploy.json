@@ -139,49 +139,68 @@
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName.frontend-nginx"
+                "$ref": "#/messages/deploy.crypto-password"
             },
-            "key": "frontend-nginx-app-name"
+            "key": "crypto-password"
         },
         {
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName.dhir-nginx"
+                "$ref": "#/messages/deploy.jwt-secret"
             },
-            "key": "dhir-nginx-app-name"
+            "key": "jwt-secret"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_retrieval_token"
+            },
+            "type": "text",
+            "key": "endpoint_retrieval_token"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_submission_token"
+            },
+            "type": "text",
+            "key": "endpoint_submission_token"
         },
         {
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName.kibana"
+                "$ref": "#/messages/deploy.postgres_readonly_role"
             },
-            "key": "kibana-app-name"
+            "key": "postgres_readonly_role"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_retrieval"
+            },
+            "type": "text",
+            "key": "endpoint_retrieval"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_submission"
+            },
+            "type": "text",
+            "key": "endpoint_submission"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_dictionary"
+            },
+            "type": "text",
+            "key": "endpoint_dictionary"
         },
         {
             "type": "text",
             "readonly": false,
             "title": {
-                "$ref": "#/messages/deploy.appName.server"
+                "$ref": "#/messages/deploy.tz"
             },
-            "key": "server-app-name"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": {
-                "$ref": "#/messages/deploy.appName.server-worker"
-            },
-            "key": "server-worker-app-name"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": {
-                "$ref": "#/messages/deploy.appName.clamav"
-            },
-            "key": "clamav-app-name"
+            "key": "tz"
         },
         {
             "type": "text",
@@ -192,48 +211,62 @@
             "key": "icon-domain"
         },
         {
-            "type": "text",
-            "readonly": false,
-            "title": "Crypto Password",
-            "key": "crypto-password"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": "JWT Secret",
-            "key": "jwt-secret"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": "Postgres read only role",
-            "key": "postgres_readonly_role"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": "Timezone",
-            "key": "tz"
-        },
-        {
-            "type": "text",
-            "key": "endpoint_retrieval"
-        },
-        {
-            "type": "text",
-            "key": "endpoint_retrieval_token"
-        },
-        {
-            "type": "text",
-            "key": "endpoint_submission"
-        },
-        {
-            "type": "text",
-            "key": "endpoint_submission_token"
-        },
-        {
-            "type": "text",
-            "key": "endpoint_dictionary"
+            "type": "table",
+            "columnCount": 2,
+            "widths": [
+                "50%",
+                "50%"
+            ],
+            "items": [
+                {
+                    "type": "text",
+                    "readonly": false,
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.frontend-nginx"
+                    },
+                    "key": "frontend-nginx-app-name"
+                },
+                {
+                    "type": "text",
+                    "readonly": false,
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.dhir-nginx"
+                    },
+                    "key": "dhir-nginx-app-name"
+                },
+                {
+                    "type": "text",
+                    "readonly": false,
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.kibana"
+                    },
+                    "key": "kibana-app-name"
+                },
+                {
+                    "type": "text",
+                    "readonly": false,
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.server"
+                    },
+                    "key": "server-app-name"
+                },
+                {
+                    "type": "text",
+                    "readonly": false,
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.server-worker"
+                    },
+                    "key": "server-worker-app-name"
+                },
+                {
+                    "type": "text",
+                    "readonly": false,
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.clamav"
+                    },
+                    "key": "clamav-app-name"
+                }
+            ]
         },
         {
             "type": "table",

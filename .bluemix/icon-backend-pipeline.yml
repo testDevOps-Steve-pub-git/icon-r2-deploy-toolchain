@@ -40,7 +40,7 @@ stages:
       application: ${CF_APP_NAME1}
     script: |-
       #!/bin/bash
-      ./blue_green.sh -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/base-manifest.yml
+      ./blue_green.sh -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/base-main-manifest.yml --no-start 
   - name: Deploy worker
     type: deployer
     target:
@@ -50,7 +50,7 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
-      ./blue_green.sh -f bluemix/base-manifest.yml
+      ./blue_green.sh -f bluemix/base-worker-manifest.yml    --no-start  
 - name: Configure server
   inputs:
   - type: job
@@ -130,7 +130,9 @@ stages:
       \cf set-env $SERVER_NAME PHIX_ENDPOINT_RETRIEVAL_TOKEN=${PHIX_ENDPOINT_RETRIEVAL_TOKEN}\n\
       \cf set-env $SERVER_NAME PHIX_ENDPOINT_SUBMISSION_TOKEN=${PHIX_ENDPOINT_SUBMISSION_TOKEN}\n\
       \cf set-env $SERVER_NAME POSTGRES_READONLY_ROLE=${POSTGRES_READONLY_ROLE}\n\
-      \cf restart $SERVER_NAME\n\
+      \cf set-env $SERVER_NAME TZ=${TZ}\n\
+      \cf set-env $SERVER_NAME SERVER_TYPE=1\n\
+      \cf start $SERVER_NAME\n\
       \# Setting env for server worker\n\
       \cf set-env $WORKER_NAME CLAMAV_ENDPOINT $CLAMAV_IP\n\
       \cf set-env $WORKER_NAME PHIX_ENDPOINT_DICTIONARY=https://${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_DICTIONARY}\n\
@@ -139,7 +141,9 @@ stages:
       \cf set-env $WORKER_NAME PHIX_ENDPOINT_RETRIEVAL_TOKEN=${PHIX_ENDPOINT_RETRIEVAL_TOKEN}\n\
       \cf set-env $WORKER_NAME PHIX_ENDPOINT_SUBMISSION_TOKEN=${PHIX_ENDPOINT_SUBMISSION_TOKEN}\n\
       \cf set-env $WORKER_NAME POSTGRES_READONLY_ROLE=${POSTGRES_READONLY_ROLE}\n\
-      \cf restart $WORKER_NAME\n"
+      \cf set-env $WORKER_NAME TZ=${TZ}\n\
+      \cf set-env $WORKER_NAME SERVER_TYPE=2\n\
+      \cf start $WORKER_NAME\n"
 hooks:
 - enabled: true
   label: null

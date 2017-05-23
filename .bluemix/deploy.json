@@ -73,35 +73,35 @@
             "pattern": "\\S"
         },
         "crypto-password": {
-            "description": "description",
+            "description": "message encrtion token",
             "type": "string"
         },
         "jwt-secret": {
-            "description": "description",
+            "description": "jwt token",
             "type": "string"
         },
         "endpoint_dictionary": {
-            "description": "description",
+            "description": "dictionary service api endpoint(leave as default unless specified otherwise)",
             "type": "string"
         },
         "endpoint_retrieval": {
-            "description": "description",
+            "description": "retrieval api endpoint(leave as default unless specified otherwise)",
             "type": "string"
         },
         "endpoint_retrieval_token": {
-            "description": "description",
+            "description": "retrieval token",
             "type": "string"
         },
         "endpoint_submission": {
-            "description": "description",
+            "description": "submission api endpoint(leave as default unless specified otherwise)",
             "type": "string"
         },
         "endpoint_submission_token": {
-            "description": "description",
+            "description": "submission token",
             "type": "string"
         },
         "postgres_readonly_role": {
-            "description": "description",
+            "description": "postgres read only role",
             "type": "string"
         },
         "tz": {
@@ -219,51 +219,64 @@
             ],
             "items": [
                 {
-                    "type": "text",
-                    "readonly": false,
+                    "type": "label",
                     "title": {
                         "$ref": "#/messages/deploy.appName.frontend-nginx"
-                    },
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.dhir-nginx"
+                    }
+                },
+                {
+                    "type": "text",
                     "key": "frontend-nginx-app-name"
                 },
                 {
                     "type": "text",
-                    "readonly": false,
-                    "title": {
-                        "$ref": "#/messages/deploy.appName.dhir-nginx"
-                    },
                     "key": "dhir-nginx-app-name"
                 },
                 {
-                    "type": "text",
-                    "readonly": false,
+                    "type": "label",
                     "title": {
                         "$ref": "#/messages/deploy.appName.kibana"
-                    },
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.server"
+                    }
+                },
+                {
+                    "type": "text",
                     "key": "kibana-app-name"
                 },
                 {
                     "type": "text",
                     "readonly": false,
-                    "title": {
-                        "$ref": "#/messages/deploy.appName.server"
-                    },
                     "key": "server-app-name"
                 },
                 {
-                    "type": "text",
-                    "readonly": false,
+                    "type": "label",
                     "title": {
                         "$ref": "#/messages/deploy.appName.server-worker"
-                    },
+                    }
+                },
+                {
+                    "type": "label",
+                    "title": {
+                        "$ref": "#/messages/deploy.appName.clamav"
+                    }
+                },
+                {
+                    "type": "text",
                     "key": "server-worker-app-name"
                 },
                 {
                     "type": "text",
-                    "readonly": false,
-                    "title": {
-                        "$ref": "#/messages/deploy.appName.clamav"
-                    },
                     "key": "clamav-app-name"
                 }
             ]

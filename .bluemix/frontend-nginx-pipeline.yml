@@ -57,13 +57,13 @@ stages:
       space: ${PROD_SPACE_NAME}
       application: ${CF_APP_NAME}
     script: |-
-      #!/bin/bash
-      
+      #!/bin/bash    
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_green.sh  -d ${ICON_DOMAIN} -n hph -f bluemix/dev-manifest.yml
+      ./blue_green.sh  -d ${ICON_DOMAIN} -n hph -f bluemix/base-manifest.yml --no-start
+      
       cf set-env ${CF_APP} ICON_SERVER https://${ICON_SERVER_NAME}.${ICON_DOMAIN}
-      cf restart ${CF_APP}
+      cf start ${CF_APP}
 hooks:
 - enabled: true
   label: null

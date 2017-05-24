@@ -20,9 +20,6 @@ stages:
       # your script here
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod a+x blue_green.sh
-      # getting credential of elasticsearch
-      cf service-key icon-elasticsearch Credential1 | grep ca_certificate_base64 | cut -d ':' -f 2 | tr -d "\", \n"  | base64 --decode > cert.pem
-
 - name: Deploy server
   inputs:
   - type: job
@@ -43,6 +40,8 @@ stages:
       application: ${CF_APP_NAME1}
     script: |-
       #!/bin/bash
+      # getting credential of elasticsearch
+      cf service-key icon-elasticsearch Credential1 | grep ca_certificate_base64 | cut -d ':' -f 2 | tr -d "\", \n"  | base64 --decode > cert.pem
       ./blue_green.sh -d ${ICON_DOMAIN} -n ${CF_APP} -f bluemix/base-main-manifest.yml --no-start
   - name: Deploy worker
     type: deployer
@@ -53,6 +52,8 @@ stages:
       application: ${CF_APP_NAME2}
     script: |-
       #!/bin/bash
+      # getting credential of elasticsearch
+      cf service-key icon-elasticsearch Credential1 | grep ca_certificate_base64 | cut -d ':' -f 2 | tr -d "\", \n"  | base64 --decode > cert.pem
       ./blue_green.sh -f bluemix/base-worker-manifest.yml  --no-start
 - name: Configure server
   inputs:

@@ -4,15 +4,15 @@ template:
   description: This Toolchain is for Developing ICON r2.  Each deployment is tagged.
   info:
     git url: '[https://github.com/Shifeng-ON/icon-r2-deploy-toolchain](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain)'
-    git branch: '[test](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/test)'
+    git branch: '[moh](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/moh)'
 toolchain:
   name: icon2-dev-toolchain-{{timestamp}}
 services:
   icon-r2-clamav-repo:
-    service_id: github
+    service_id: githubpublic
     parameters:
       repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.ehealthontario.ca-east.bluemix.net/ICON-TEST/icon-r2-clamav'
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-clamav.git'
       type: link
       has_issues: false
       enable_traceability: false
@@ -36,9 +36,9 @@ services:
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
       execute: false
   icon-r2-frontend-nginx-repo:
-    service_id: github
+    service_id: githubpublic
     parameters:
-      repo_url: 'https://github.ehealthontario.ca-east.bluemix.net/ICON-TEST/icon-r2-frontend-nginx'
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-frontend-nginx.git'
       type: link
       has_issues: false
       enable_traceability: false
@@ -63,9 +63,9 @@ services:
           ICON_SERVER_NAME: '{{form.pipeline.parameters.server-app-name}}'
       execute: false
   icon-r2-dhir-nginx-repo:
-    service_id: github
+    service_id: githubpublic
     parameters:
-      repo_url: 'https://github.ehealthontario.ca-east.bluemix.net/ICON-TEST/icon-r2-dhir-nginx'
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-dhir-nginx.git'
       type: link
       has_issues: false
       enable_traceability: false
@@ -89,9 +89,9 @@ services:
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
       execute: false
   icon-r2-kibana-repo:
-    service_id: github
+    service_id: githubpublic
     parameters:
-      repo_url: 'https://github.ehealthontario.ca-east.bluemix.net/ICON-TEST/icon-r2-kibana'
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-kibana.git'
       type: link
       has_issues: false
       enable_traceability: false
@@ -115,9 +115,9 @@ services:
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
       execute: false
   icon-r2-server-repo:
-    service_id: github
+    service_id: githubpublic
     parameters:
-      repo_url: 'https://github.ehealthontario.ca-east.bluemix.net/ICON-TEST/icon-r2-backend'
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-backend.git'
       type: link
       has_issues: false
       enable_traceability: false

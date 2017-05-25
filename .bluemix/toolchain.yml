@@ -4,10 +4,34 @@ template:
   description: This Toolchain is for Developing ICON r2.  Each deployment is tagged.
   info:
     git url: '[https://github.com/Shifeng-ON/icon-r2-deploy-toolchain](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain)'
-    git branch: '[moh](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/moh)'
+    git branch: '[combine](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/combine)'
 toolchain:
-  name: icon2-dev-toolchain-{{timestamp}}
+  name: icon2-toolchain-{{timestamp}}
 services:
+  icon-r2-init-setup-repo:
+    service_id: githubpublic
+    parameters:
+      repo_url: 'https://github.com/MOHLTC11/icon-r2-init-setup.git'
+      type: link
+      has_issues: false
+      enable_traceability: false
+  icon-r2-init-setup-pipeline:
+    service_id: pipeline
+    parameters:
+      services:
+        - icon-r2-init-setup-repo
+      name: 'icon-r2-init-setup-pipeline'
+      configuration:
+        content:
+          $ref: init-setup.yml
+          $refType: text
+        env:
+          SAMPLE_REPO: icon-r2-init-setup-repo
+          CF_APP_NAME1: 'Compose services'
+          PROD_SPACE_NAME: '{{form.pipeline.parameters.prod-space}}'
+          PROD_ORG_NAME: '{{form.pipeline.parameters.prod-organization}}'
+          PROD_REGION_ID: '{{form.pipeline.parameters.prod-region}}'
+    execute: false
   icon-r2-clamav-repo:
     service_id: githubpublic
     parameters:

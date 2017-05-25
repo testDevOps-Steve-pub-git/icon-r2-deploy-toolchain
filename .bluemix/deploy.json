@@ -135,82 +135,7 @@
             "type": "validator",
             "url": "/devops/setup/bm-helper/helper.html"
         },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": {
-                "$ref": "#/messages/deploy.crypto-password"
-            },
-            "key": "crypto-password"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": {
-                "$ref": "#/messages/deploy.jwt-secret"
-            },
-            "key": "jwt-secret"
-        },
-        {
-            "title": {
-                "$ref": "#/messages/deploy.endpoint_retrieval_token"
-            },
-            "type": "text",
-            "key": "endpoint_retrieval_token"
-        },
-        {
-            "title": {
-                "$ref": "#/messages/deploy.endpoint_submission_token"
-            },
-            "type": "text",
-            "key": "endpoint_submission_token"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": {
-                "$ref": "#/messages/deploy.postgres_readonly_role"
-            },
-            "key": "postgres_readonly_role"
-        },
-        {
-            "title": {
-                "$ref": "#/messages/deploy.endpoint_retrieval"
-            },
-            "type": "text",
-            "key": "endpoint_retrieval"
-        },
-        {
-            "title": {
-                "$ref": "#/messages/deploy.endpoint_submission"
-            },
-            "type": "text",
-            "key": "endpoint_submission"
-        },
-        {
-            "title": {
-                "$ref": "#/messages/deploy.endpoint_dictionary"
-            },
-            "type": "text",
-            "key": "endpoint_dictionary"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": {
-                "$ref": "#/messages/deploy.tz"
-            },
-            "key": "tz"
-        },
-        {
-            "type": "text",
-            "readonly": false,
-            "title": {
-                "$ref": "#/messages/icon-domain"
-            },
-            "key": "icon-domain"
-        },
-        {
+         {
             "type": "table",
             "columnCount": 2,
             "widths": [
@@ -280,6 +205,81 @@
                     "key": "clamav-app-name"
                 }
             ]
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/icon-domain"
+            },
+            "key": "icon-domain"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.crypto-password"
+            },
+            "key": "crypto-password"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.jwt-secret"
+            },
+            "key": "jwt-secret"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_retrieval_token"
+            },
+            "type": "text",
+            "key": "endpoint_retrieval_token"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_submission_token"
+            },
+            "type": "text",
+            "key": "endpoint_submission_token"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.postgres_readonly_role"
+            },
+            "key": "postgres_readonly_role"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_retrieval"
+            },
+            "type": "text",
+            "key": "endpoint_retrieval"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_submission"
+            },
+            "type": "text",
+            "key": "endpoint_submission"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_dictionary"
+            },
+            "type": "text",
+            "key": "endpoint_dictionary"
+        },
+        {
+            "type": "text",
+            "readonly": false,
+            "title": {
+                "$ref": "#/messages/deploy.tz"
+            },
+            "key": "tz"
         },
         {
             "type": "table",

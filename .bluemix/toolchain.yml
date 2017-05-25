@@ -6,7 +6,7 @@ template:
     git url: '[https://github.com/Shifeng-ON/icon-r2-deploy-toolchain](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain)'
     git branch: '[combine](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/combine)'
 toolchain:
-  name: icon2-toolchain-{{timestamp}}
+  name: icon-r2-toolchain-{{timestamp}}
 services:
   icon-r2-init-setup-repo:
     service_id: githubpublic
@@ -210,12 +210,12 @@ form:
           cf delete \$OLD_CF_APP -f
         fi
     parameters:
-      server-app-name: 'icon-r2-server'
-      server-worker-app-name: 'icon-r2-server-worker'
-      frontend-nginx-app-name: 'icon-r2-frontend-nginx'
-      dhir-nginx-app-name: 'icon-r2-dhir-nginx'
-      kibana-app-name: 'icon-r2-kibana'
-      clamav-app-name: 'icon-r2-clamav'
+      server-app-name: 'icon-server'
+      server-worker-app-name: 'icon-server-worker'
+      frontend-nginx-app-name: 'icon-nginx'
+      dhir-nginx-app-name: 'dhir-nginx'
+      kibana-app-name: 'icon-kibana'
+      clamav-app-name: 'icon-clamav'
       icon-domain: 'ehealthontario.ca-east.mybluemix.net'
       crypto-password: '<password>'
       jwt-secret: '<JWT Token>'

@@ -10,25 +10,6 @@ stages:
   - name: Build
     type: builder
     artifact_dir: ''
-- name: Test frontend
-  inputs:
-  - type: job
-    stage: Build frontend
-    job: Build
-    dir_name: null
-  triggers:
-  - type: stage
-  jobs:
-  - name: Test
-    type: tester
-    script: |-
-      #!/bin/bash
-      # invoke tests here
-      export PATH=/opt/IBM/node-v6.7.0/bin:$PATH
-      # Run unit-tests
-      npm install && npm run test-unit
-    enable_tests: true
-    test_file_pattern: test-*.xml
 - name: Deploy frontend
   inputs:
   - type: job

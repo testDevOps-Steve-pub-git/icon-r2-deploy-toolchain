@@ -117,7 +117,7 @@ stages:
 
       # Prepare configuration\
       # GET CLAMAV endpoint
-      CLAMAV_ENDPOINT=https://${CLAMAV_NAME}.${ICON_DOMAIN}
+      CLAMAV_ENDPOINT=https://${CLAMAV_NAME}.${ICON_DOMAIN}/scan
       # GET DHIR NGINX ENDPOINT
       DHIR_NGINX_ENDPOINT=https://${DHIR_NAME}.${ICON_DOMAIN}
       #Setting env for server

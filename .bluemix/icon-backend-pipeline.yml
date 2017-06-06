@@ -114,31 +114,14 @@ stages:
       application: ${CF_APP_NAME1}
     script: |-
       #!/bin/bash
-      export EXT_DIR=$(pwd)
-      sudo apt-get -y install apt-transport-https ca-certificates &> $EXT_DIR/dockerinst.out
-      sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D &>> $EXT_DIR/dockerinst.out
-      sudo add-apt-repository "deb https://apt.dockerproject.org/repo ubuntu-precise main" &>> $EXT_DIR/dockerinst.out
-      sudo apt-get update &>> $EXT_DIR/dockerinst.out
-      sudo apt-get -y install docker-engine &>> $EXT_DIR/dockerinst.out
-      if [ -f $EXT_DIR/utilities/cfic826.tgz ]; then
-          tar zxf $EXT_DIR/utilities/cfic826.tgz
-      else
-          wget https://static-ice.ng.bluemix.net/ibm-containers-linux_x64 &> /dev/null
-      fi
-      chmod 755 $EXT_DIR/ibm-containers-linux_x64
-      echo "Installing IBM Containers plugin (cf ic)"
-      cf install-plugin -f $EXT_DIR/ibm-containers-linux_x64 &> /dev/null
-      cf ic init
 
       # Prepare configuration\
       # GET CLAMAV endpoint
-      RIGHT=}}
-      LEFT={{
-      CLAMAV_IP=$(cf ic inspect -f $LEFT'.NetworkSettings.PublicIpAddress'$RIGHT $CLAMAV_NAME)
+      CLAMAV_ENDPOINT=https://${CLAMAV_NAME}.${ICON_DOMAIN}
       # GET DHIR NGINX ENDPOINT
       DHIR_NGINX_ENDPOINT=https://${DHIR_NAME}.${ICON_DOMAIN}
       #Setting env for server
-      cf set-env $SERVER_NAME CLAMAV_ENDPOINT $CLAMAV_IP
+      cf set-env $SERVER_NAME CLAMAV_ENDPOINT $CLAMAV_ENDPOINT
       cf set-env $SERVER_NAME JWT_TOKEN_SECRET_KEY  $JWT_TOKEN_SECRET_KEY
       cf set-env $SERVER_NAME CRYPTO_PASSWORD $CRYPTO_PASSWORD
       cf set-env $SERVER_NAME PHIX_ENDPOINT_DICTIONARY ${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_DICTIONARY}
@@ -152,7 +135,7 @@ stages:
       cf set-env $SERVER_NAME NODE_EXTRA_CA_CERTS cert.pem
       cf start   $SERVER_NAME
       # Setting env for server worker
-      cf set-env $WORKER_NAME CLAMAV_ENDPOINT $CLAMAV_IP
+      cf set-env $WORKER_NAME CLAMAV_ENDPOINT $CLAMAV_ENDPOINT
       cf set-env $WORKER_NAME JWT_TOKEN_SECRET_KEY  $JWT_TOKEN_SECRET_KEY
       cf set-env $WORKER_NAME CRYPTO_PASSWORD $CRYPTO_PASSWORD
       cf set-env $WORKER_NAME PHIX_ENDPOINT_DICTIONARY ${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_DICTIONARY}

@@ -109,7 +109,7 @@
             "type": "string"
         },
         "front_end_hostnames":{
-            "description": "commas seperated hostnames will be assign to icon front end",
+            "description": "a list of hostnames seperated by commas, which will be assigned to icon front end at deployment",
             "type":"string"
         }
 

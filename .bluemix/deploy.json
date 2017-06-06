@@ -107,7 +107,12 @@
         "tz": {
             "description": "Timezone",
             "type": "string"
+        },
+        "front_end_hostnames":{
+            "description": "commas seperated hostnames will be assign to icon front end",
+            "type":"string"
         }
+
     },
     "required": [
         "prod-region",
@@ -128,7 +133,8 @@
         "endpoint_retrieval",
         "endpoint_dictionary",
         "jwt-secret",
-        "crypto-password"
+        "crypto-password",
+        "front_end_hostnames"
     ],
     "form": [
         {

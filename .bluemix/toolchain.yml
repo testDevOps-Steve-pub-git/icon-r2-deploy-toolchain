@@ -61,6 +61,7 @@ services:
           ICON_DOMAIN: '{{form.pipeline.parameters.icon-domain}}'
           DEPLOY_SCRIPT: '{{form.pipeline.scripts.blue-green}}'
           ICON_SERVER_NAME: '{{form.pipeline.parameters.server-app-name}}'
+          HOSTNAMES: '{{form.pipeline.parameters.front_end_hostnames}}'
       execute: false
   icon-r2-dhir-nginx-repo:
     service_id: githubpublic
@@ -201,6 +202,7 @@ form:
       endpoint_submission: '/API/FHIR/Immunizations/v2/Communication'
       endpoint_submission_token: '<submission token>'
       postgres_readonly_role: 'readonly:WERJFIRWJWNEDJASDF'
+      front_end_hostnames: 'gbhu,klfa,nrph,xxsupportphu1'
       tz: 'America/Toronto'
     schema:
       $ref: deploy.json

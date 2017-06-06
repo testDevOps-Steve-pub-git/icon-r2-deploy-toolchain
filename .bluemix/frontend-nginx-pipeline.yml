@@ -45,6 +45,9 @@ stages:
   - name: ICON_SERVER_NAME
     type: text
     value: ${ICON_SERVER_NAME}
+  - name: HOSTNAMES
+    type: text
+    value: ${HOSTNAMES}
   triggers:
   - type: stage
   jobs:
@@ -60,8 +63,14 @@ stages:
       #!/bin/bash    
       echo "${BLUE_GREEN}" > blue_green.sh
       chmod +x blue_green.sh
-      ./blue_green.sh  -d ${ICON_DOMAIN} -n hph -f bluemix/base-manifest.yml --no-start
-      
+
+      ./blue_green.sh  -f bluemix/base-manifest.yml --no-start --no-route
+
+      for i in $(echo $HOSTNAMES | tr ',' ' ')
+      do
+        cf map-route ${CF_APP} ${ICON_DOMAIN} --hostname $i
+      done
+
       cf set-env ${CF_APP} ICON_SERVER https://${ICON_SERVER_NAME}.${ICON_DOMAIN}
       cf start ${CF_APP}
 hooks:

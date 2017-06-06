@@ -203,6 +203,15 @@
             "key": "tz"
         },
         {
+            "type":"text",
+            "readonly":false,
+            "title":{
+                "$ref":"#/messages/deploy.front_end_hostnames"
+            },
+            "key":"front_end_hostnames"
+        }
+        ,
+        {
             "type": "text",
             "readonly": false,
             "title": {

@@ -6,6 +6,9 @@ stages:
     type: git
     branch: master
     dir_name: null
+  triggers:
+  - type: stage
+    enabled: false
   properties:
   - name: BLUE_GREEN
     type: text_area

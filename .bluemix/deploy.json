@@ -172,12 +172,26 @@
             "key": "endpoint_submission_token"
         },
         {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_pin_admin_token"
+            },
+            "type": "text",
+            "key": "endpoint_pin_admin_token"
+        },
+        {
             "type": "text",
             "readonly": false,
             "title": {
                 "$ref": "#/messages/deploy.postgres_readonly_role"
             },
             "key": "postgres_readonly_role"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_dictionary"
+            },
+            "type": "text",
+            "key": "endpoint_dictionary"
         },
         {
             "title": {
@@ -195,10 +209,10 @@
         },
         {
             "title": {
-                "$ref": "#/messages/deploy.endpoint_dictionary"
+                "$ref": "#/messages/deploy.endpoint_pin_admin"
             },
             "type": "text",
-            "key": "endpoint_dictionary"
+            "key": "endpoint_pin_admin"
         },
         {
             "type": "text",

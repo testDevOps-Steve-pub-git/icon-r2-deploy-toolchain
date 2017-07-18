@@ -111,6 +111,11 @@
         "front_end_hostnames":{
             "description": "a list of hostnames seperated by commas, which will be assigned to icon front end at deployment",
             "type":"string"
+        },
+        "spaces":{
+            "description":"which s",
+            "type":"string",
+            "enum":["qwe","eqwe","qweer"]
         }
 
     },
@@ -134,7 +139,8 @@
         "endpoint_dictionary",
         "jwt-secret",
         "crypto-password",
-        "front_end_hostnames"
+        "front_end_hostnames",
+        "spaces"
     ],
     "form": [
         {

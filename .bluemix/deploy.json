@@ -172,6 +172,13 @@
             "key": "endpoint_submission_token"
         },
         {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_pin_admin_token"
+            },
+            "type": "text",
+            "key": "endpoint_pin_admin_token"
+        },
+        {
             "type": "text",
             "readonly": false,
             "title": {
@@ -192,6 +199,13 @@
             },
             "type": "text",
             "key": "endpoint_submission"
+        },
+        {
+            "title": {
+                "$ref": "#/messages/deploy.endpoint_pin_admin"
+            },
+            "type": "text",
+            "key": "endpoint_pin_admin"
         },
         {
             "title": {

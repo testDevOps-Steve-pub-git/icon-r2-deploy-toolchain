@@ -142,7 +142,7 @@ stages:
       cf set-env $SERVER_NAME TZ ${TZ}
       cf set-env $SERVER_NAME SERVER_TYPE 1
       cf set-env $SERVER_NAME NODE_EXTRA_CA_CERTS cert.pem
-      cf set-env $SERVER_NAME DHIR_ENDPOINT_ACCESS ${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_PIN_ADMIN}/
+      cf set-env $SERVER_NAME DHIR_ENDPOINT_ACCESS ${DHIR_NGINX_ENDPOINT}${PHIX_ENDPOINT_PIN_ADMIN}
       cf set-env $SERVER_NAME DHIR_ENDPOINT_ACCESS_TOKEN ${PHIX_ENDPOINT_PIN_ADMIN_TOKEN}
       cf start   $SERVER_NAME
       # Setting env for server worker

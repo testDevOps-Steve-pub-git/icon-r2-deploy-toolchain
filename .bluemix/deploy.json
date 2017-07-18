@@ -187,9 +187,9 @@
             "key": "postgres_readonly_role"
         },
          {
-                    "type": "select",
-                    "key": "spaces",
-                    "readonly": false
+             "type": "select",
+             "key": "spaces",
+             "readonly": false
         },
         {
             "title": {

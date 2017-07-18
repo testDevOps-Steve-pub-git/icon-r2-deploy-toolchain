@@ -207,7 +207,7 @@ form:
       endpoint_pin_admin_token: '<pin admin token>'
       postgres_readonly_role: 'readonly:WERJFIRWJWNEDJASDF'
       front_end_hostnames: ''
-      spaces: ['qweqe','qew','qwe']
+      spaces: [qweqe,qew,qwe]
       tz: 'America/Toronto'
     schema:
       $ref: deploy.json

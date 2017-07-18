@@ -111,7 +111,16 @@
         "front_end_hostnames":{
             "description": "a list of hostnames seperated by commas, which will be assigned to icon front end at deployment",
             "type":"string"
+        },
+        "endpoint_pin_admin_token":{
+              "description": "admin endpoint token",
+            "type":"string"
+        },
+        "endpoint_pin_admin":{
+              "description": "admin endpoint",
+            "type":"string"
         }
+
 
     },
     "required": [
@@ -134,7 +143,9 @@
         "endpoint_dictionary",
         "jwt-secret",
         "crypto-password",
-        "front_end_hostnames"
+        "front_end_hostnames",
+        "endpoint_pin_admin",
+        "endpoint_pin_admin_token"
     ],
     "form": [
         {

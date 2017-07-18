@@ -186,6 +186,11 @@
             },
             "key": "postgres_readonly_role"
         },
+         {
+                    "type": "select",
+                    "key": "spaces",
+                    "readonly": false
+        },
         {
             "title": {
                 "$ref": "#/messages/deploy.endpoint_dictionary"
@@ -360,7 +365,7 @@
                     "type": "select",
                     "key": "prod-space",
                     "readonly": false
-                }
+                }   
             ]
         }
     ]

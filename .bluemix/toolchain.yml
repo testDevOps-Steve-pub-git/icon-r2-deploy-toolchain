@@ -4,7 +4,7 @@ template:
   description: This Toolchain is for Developing ICON r2.  Each deployment is tagged.
   info:
     git url: '[https://github.com/Shifeng-ON/icon-r2-deploy-toolchain](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain)'
-    git branch: '[r2.1](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/r2.1)'
+    git branch: '[new](https://github.com/Shifeng-ON/icon-r2-deploy-toolchain/tree/new)'
 toolchain:
   name: icon2-dev-toolchain-{{timestamp}}
 services:
@@ -207,6 +207,7 @@ form:
       endpoint_pin_admin_token: '<pin admin token>'
       postgres_readonly_role: 'readonly:WERJFIRWJWNEDJASDF'
       front_end_hostnames: ''
+      spaces: ['qweqe','qew','qwe']
       tz: 'America/Toronto'
     schema:
       $ref: deploy.json

@@ -12,7 +12,7 @@ services:
     service_id: githubpublic
     parameters:
       repo_name: '{{toolchain.name}}'
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-clamav.git'
+      repo_url: 'https://github.com/testDevOps-Steve-pub-git/icon-r2-clamav.git'
       type: link
       has_issues: false
       enable_traceability: false
@@ -38,7 +38,7 @@ services:
   icon-r2-frontend-nginx-repo:
     service_id: githubpublic
     parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-frontend-nginx.git'
+      repo_url: 'https://github.com/testDevOps-Steve-pub-git/icon-r2-frontend-nginx.git'
       type: link
       has_issues: false
       enable_traceability: false
@@ -66,7 +66,7 @@ services:
   icon-r2-dhir-nginx-repo:
     service_id: githubpublic
     parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-dhir-nginx.git'
+      repo_url: 'https://github.com/testDevOps-Steve-pub-git/icon-r2-dhir-nginx.git'
       type: link
       has_issues: false
       enable_traceability: false
@@ -92,7 +92,7 @@ services:
   icon-r2-kibana-repo:
     service_id: githubpublic
     parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-kibana.git'
+      repo_url: 'https://github.com/testDevOps-Steve-pub-git/icon-r2-kibana.git'
       type: link
       has_issues: false
       enable_traceability: false
@@ -118,7 +118,7 @@ services:
   icon-r2-server-repo:
     service_id: githubpublic
     parameters:
-      repo_url: 'https://github.com/MOHLTC11/icon-r2-backend.git'
+      repo_url: 'https://github.com/testDevOps-Steve-pub-git/icon-r2-backend.git'
       type: link
       has_issues: false
       enable_traceability: false
